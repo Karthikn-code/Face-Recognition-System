@@ -147,6 +147,12 @@ def handle_evaluate(args: argparse.Namespace) -> None:
     eval_main()
 
 
+def handle_demo(args: argparse.Namespace) -> None:
+    """Handle starting the interactive web demo application."""
+    from app import start_server
+    start_server(port=args.port)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Face Recognition Identification System CLI",
@@ -181,6 +187,11 @@ def main():
     # Command: evaluate
     parser_eval = subparsers.add_parser("evaluate", help="Run full system evaluation pipeline on LFW split")
     parser_eval.set_defaults(func=handle_evaluate)
+
+    # Command: demo
+    parser_demo = subparsers.add_parser("demo", help="Launch interactive web application demo")
+    parser_demo.add_argument("--port", type=int, default=8000, help="Port to run the web server on (default: 8000)")
+    parser_demo.set_defaults(func=handle_demo)
 
     args = parser.parse_args()
 

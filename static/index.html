@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FaceID - Production Face Recognition & Unknown Rejection System</title>
+  <meta name="description" content="Production-quality explainable face recognition system with ArcFace embeddings, cosine similarity matching, and threshold-based unknown rejection.">
+  
+  <!-- Modern Typography (Outfit & Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-theme">
+  <div class="app-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="ph-fill ph-scan"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">FaceID<span class="accent-dot">.</span>ai</span>
+          <span class="brand-subtitle">ArcFace Recognition Engine</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="tab-identify" id="nav-btn-identify">
+          <i class="ph ph-fingerprint"></i>
+          <span>Live Identifier</span>
+        </button>
+        <button class="nav-item" data-tab="tab-gallery" id="nav-btn-gallery">
+          <i class="ph ph-users-three"></i>
+          <span>Enrolled Gallery</span>
+          <span class="badge" id="enrolled-badge">0</span>
+        </button>
+        <button class="nav-item" data-tab="tab-benchmark" id="nav-btn-benchmark">
+          <i class="ph ph-chart-polar"></i>
+          <span>Evaluation & Plots</span>
+        </button>
+        <button class="nav-item" data-tab="tab-failures" id="nav-btn-failures">
+          <i class="ph ph-warning-circle"></i>
+          <span>Failure Inspector</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-status">
+        <div class="status-card">
+          <div class="status-header">
+            <span class="status-indicator online"></span>
+            <span class="status-title">System Status</span>
+          </div>
+          <div class="status-details">
+            <div class="status-row">
+              <span>Backend</span>
+              <strong id="system-backend">INSIGHTFACE</strong>
+            </div>
+            <div class="status-row">
+              <span>Embedding Dim</span>
+              <strong>512-D Unit</strong>
+            </div>
+            <div class="status-row">
+              <span>Execution</span>
+              <strong>CPU (Local)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="page-title-area">
+          <h1 id="main-heading">Live Face Identification</h1>
+          <p class="page-subtitle" id="page-subheading">Detect facial landmarks, extract ArcFace embeddings, and match against gallery with unknown rejection.</p>
+        </div>
+        <div class="header-actions">
+          <div class="quick-stat">
+            <i class="ph ph-shield-check"></i>
+            <div>
+              <div class="stat-label">Operating Threshold (τ)</div>
+              <div class="stat-val" id="top-thresh-display">0.34</div>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="btn-open-enroll-modal">
+            <i class="ph ph-user-plus"></i>
+            <span>Enroll Identity</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: IDENTIFICATION & MATCHING -->
+      <section class="tab-panel active" id="tab-identify">
+        <div class="grid-layout-identifier">
+          
+          <!-- Left Column: Input, Controls & Canvas -->
+          <div class="panel-card canvas-card">
+            <div class="card-header">
+              <div class="header-left">
+                <i class="ph ph-camera"></i>
+                <h2>Query Image Analysis</h2>
+              </div>
+              <div class="header-controls">
+                <button class="btn btn-secondary btn-sm" id="btn-clear-canvas" title="Reset Image">
+                  <i class="ph ph-arrows-counter-clockwise"></i> Clear
+                </button>
+              </div>
+            </div>
+
+            <!-- Upload Zone / Canvas Container -->
+            <div class="canvas-viewport" id="viewport-container">
+              <div class="dropzone" id="image-dropzone">
+                <div class="dropzone-icon">
+                  <i class="ph-fill ph-cloud-arrow-up"></i>
+                </div>
+                <h3>Drag & Drop Query Image Here</h3>
+                <p>Supports PNG, JPG, JPEG, BMP (250x250 or higher)</p>
+                <div class="dropzone-actions">
+                  <button class="btn btn-primary btn-sm" id="btn-browse-file">
+                    <i class="ph ph-folder-open"></i> Browse Files
+                  </button>
+                  <input type="file" id="file-input" accept="image/*" style="display: none;">
+                </div>
+              </div>
+
+              <!-- Interactive Display Canvas -->
+              <div class="canvas-wrapper hidden" id="canvas-wrapper">
+                <canvas id="face-canvas"></canvas>
+                <div class="canvas-overlay-badges" id="canvas-badges"></div>
+              </div>
+
+              <!-- Loading Overlay -->
+              <div class="loading-overlay hidden" id="loading-overlay">
+                <div class="spinner"></div>
+                <p id="loading-text">Extracting ArcFace 512D Embedding...</p>
+              </div>
+            </div>
+
+            <!-- Interactive Threshold Control -->
+            <div class="threshold-control-box">
+              <div class="threshold-header">
+                <div class="th-label">
+                  <i class="ph ph-sliders"></i>
+                  <span>Decision Threshold ($\tau$)</span>
+                  <span class="info-tag" title="Higher = Strict security; Lower = Convenience">Tune Rejection</span>
+                </div>
+                <div class="threshold-value-display">
+                  <span id="slider-threshold-val">0.34</span>
+                </div>
+              </div>
+              <input type="range" id="threshold-slider" min="0.10" max="0.90" step="0.01" value="0.34">
+              <div class="threshold-ticks">
+                <span>0.10 (Lax)</span>
+                <span class="opt-mark">Optimal τ: 0.34</span>
+                <span>0.90 (Strict)</span>
+              </div>
+            </div>
+
+            <!-- Quick LFW Dataset Samples Picker -->
+            <div class="samples-picker-section">
+              <div class="samples-header">
+                <i class="ph ph-sparkle"></i>
+                <span>Quick Test with LFW Dataset Samples:</span>
+              </div>
+              <div class="samples-grid" id="samples-container">
+                <!-- Dynamically injected -->
+                <span class="loading-inline">Loading dataset samples...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Recognition Results -->
+          <div class="panel-card results-card">
+            <div class="card-header">
+              <div class="header-left">
+                <i class="ph ph-identification-card"></i>
+                <h2>Recognition Results</h2>
+              </div>
+              <span class="faces-count-pill" id="detected-faces-pill">0 Faces</span>
+            </div>
+
+            <div class="results-content-area" id="results-container">
+              <!-- Empty placeholder state -->
+              <div class="empty-state" id="empty-results-state">
+                <div class="empty-icon">
+                  <i class="ph ph-scan-smiley"></i>
+                </div>
+                <h3>No Query Face Analyzed</h3>
+                <p>Upload a photo or click an LFW sample button below to view real-time face detection, cosine similarity, and unknown rejection decisions.</p>
+              </div>
+
+              <!-- Dynamic Cards container -->
+              <div class="faces-list hidden" id="faces-results-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: ENROLLED GALLERY -->
+      <section class="tab-panel" id="tab-gallery">
+        <div class="gallery-container">
+          <div class="gallery-toolbar">
+            <div class="search-box">
+              <i class="ph ph-magnifying-glass"></i>
+              <input type="text" id="gallery-search" placeholder="Search enrolled identities...">
+            </div>
+            <button class="btn btn-primary" id="btn-gallery-enroll">
+              <i class="ph ph-plus"></i> Enroll New Identity
+            </button>
+          </div>
+
+          <div class="gallery-grid" id="gallery-cards-grid">
+            <!-- Dynamically injected -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: BENCHMARK & EVALUATION PLOTS -->
+      <section class="tab-panel" id="tab-benchmark">
+        <div class="benchmark-container">
+          <!-- Metrics Overview Cards -->
+          <div class="metrics-kpi-grid">
+            <div class="kpi-card accent-cyan">
+              <div class="kpi-label">Known Top-1 Accuracy</div>
+              <div class="kpi-value">100.00%</div>
+              <div class="kpi-sub">134 / 134 Test Queries Correct</div>
+            </div>
+            <div class="kpi-card accent-emerald">
+              <div class="kpi-label">False Accept Rate (FAR)</div>
+              <div class="kpi-value">0.00%</div>
+              <div class="kpi-sub">0 / 80 Unknown Intruders Accepted</div>
+            </div>
+            <div class="kpi-card accent-blue">
+              <div class="kpi-label">False Reject Rate (FRR)</div>
+              <div class="kpi-value">0.00%</div>
+              <div class="kpi-sub">0 / 134 Known Faces Rejected</div>
+            </div>
+            <div class="kpi-card accent-purple">
+              <div class="kpi-label">Operating Threshold ($\tau$)</div>
+              <div class="kpi-value">0.34</div>
+              <div class="kpi-sub">EER Point: 0.31 on Validation Split</div>
+            </div>
+          </div>
+
+          <!-- Plots Grid -->
+          <div class="plots-grid">
+            <div class="plot-card">
+              <div class="plot-header">
+                <h3>FAR & FRR vs Cosine Similarity Threshold</h3>
+                <span class="badge">Validation Sweep</span>
+              </div>
+              <div class="plot-img-wrapper" onclick="window.open('/results/plots/far_frr_vs_threshold.png', '_blank')">
+                <img src="/results/plots/far_frr_vs_threshold.png" alt="FAR & FRR Curve" loading="lazy">
+                <div class="zoom-overlay"><i class="ph ph-arrows-out"></i> Click to Zoom</div>
+              </div>
+            </div>
+
+            <div class="plot-card">
+              <div class="plot-header">
+                <h3>Receiver Operating Characteristic (ROC)</h3>
+                <span class="badge">True Accept vs False Accept</span>
+              </div>
+              <div class="plot-img-wrapper" onclick="window.open('/results/plots/roc_det_curve.png', '_blank')">
+                <img src="/results/plots/roc_det_curve.png" alt="ROC Curve" loading="lazy">
+                <div class="zoom-overlay"><i class="ph ph-arrows-out"></i> Click to Zoom</div>
+              </div>
+            </div>
+
+            <div class="plot-card">
+              <div class="plot-header">
+                <h3>Score Distribution (Genuine vs Impostor)</h3>
+                <span class="badge">ArcFace Margin Separation</span>
+              </div>
+              <div class="plot-img-wrapper" onclick="window.open('/results/plots/score_distribution.png', '_blank')">
+                <img src="/results/plots/score_distribution.png" alt="Score Distribution" loading="lazy">
+                <div class="zoom-overlay"><i class="ph ph-arrows-out"></i> Click to Zoom</div>
+              </div>
+            </div>
+
+            <div class="plot-card">
+              <div class="plot-header">
+                <h3>Per-Person Test Split Accuracy</h3>
+                <span class="badge">Sample 20 Identities</span>
+              </div>
+              <div class="plot-img-wrapper" onclick="window.open('/results/plots/confusion_per_person.png', '_blank')">
+                <img src="/results/plots/confusion_per_person.png" alt="Per Person Accuracy" loading="lazy">
+                <div class="zoom-overlay"><i class="ph ph-arrows-out"></i> Click to Zoom</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: FAILURE CASE INSPECTOR -->
+      <section class="tab-panel" id="tab-failures">
+        <div class="failures-container">
+          <div class="failures-intro-card">
+            <div class="intro-badge">Production Boundary Analysis</div>
+            <h2>Boundary Stress Case Visualizer</h2>
+            <p>At the optimal threshold ($\tau = 0.34$), the system achieves 100% accuracy due to ArcFace's wide margin on the 40-subject LFW split. To analyze real-world vulnerabilities, these boundary artifacts inspect: <strong>(1) False Rejects under strict security thresholds ($\tau \ge 0.60$)</strong>, <strong>(2) False Accepts under relaxed thresholds ($\tau \le 0.10$)</strong>, and <strong>(3) No-Face handling</strong>.</p>
+          </div>
+
+          <div class="failures-grid" id="failures-grid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ENROLLMENT MODAL -->
+  <div class="modal-backdrop hidden" id="enroll-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Enroll New Person Identity</h2>
+        <button class="btn-close" id="btn-close-enroll"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="enroll-name-input">Identity Full Name</label>
+          <input type="text" id="enroll-name-input" placeholder="e.g. Alice_Smith" class="form-control">
+          <small>Spaces will be formatted to underscores.</small>
+        </div>
+        
+        <div class="form-group">
+          <label>Enrollment Photos (Select 1 to 5 images)</label>
+          <div class="modal-dropzone" id="modal-enroll-dropzone">
+            <i class="ph ph-images"></i>
+            <span>Click or drag photos here to upload</span>
+            <input type="file" id="modal-file-input" accept="image/*" multiple style="display: none;">
+          </div>
+          <div class="enroll-preview-grid" id="enroll-preview-grid"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-cancel-enroll">Cancel</button>
+        <button class="btn btn-primary" id="btn-submit-enroll">
+          <i class="ph ph-check"></i> Complete Enrollment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

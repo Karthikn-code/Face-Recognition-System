@@ -1,0 +1,40 @@
+{
+  "backend": "insightface",
+  "selected_threshold": 0.33999999999999986,
+  "eer_threshold": 0.30999999999999994,
+  "test_results": {
+    "top1_accuracy": 1.0,
+    "far": 0.0,
+    "frr": 0.0,
+    "wrong_person_rate": 0.0,
+    "unknown_rejection_rate": 1.0,
+    "total_known_queries": 134,
+    "total_unknown_queries": 80,
+    "total_queries": 214,
+    "no_face_count": 0,
+    "failures_count": 0,
+    "failure_counts_by_type": {
+      "false_accept": 0,
+      "false_reject": 0,
+      "wrong_person": 0,
+      "no_face": 0
+    }
+  },
+  "comparative_evaluation": {
+    "3_images_max_sim": {
+      "top1_acc": 1.0,
+      "far": 0.0,
+      "frr": 0.0
+    },
+    "3_images_mean_proto": {
+      "top1_acc": 1.0,
+      "far": 0.0,
+      "frr": 0.0
+    },
+    "1_image_max_sim": {
+      "top1_acc": 1.0,
+      "far": 0.0,
+      "frr": 0.0
+    }
+  }
+}

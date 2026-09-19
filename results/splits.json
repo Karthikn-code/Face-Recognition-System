@@ -1,0 +1,1935 @@
+{
+  "seed": 42,
+  "num_known_people": 40,
+  "num_unknown_people": 40,
+  "enrollment": [
+    {
+      "person": "Justine_Pasek",
+      "path": "data\\lfw\\Justine_Pasek\\0002.jpg"
+    },
+    {
+      "person": "Justine_Pasek",
+      "path": "data\\lfw\\Justine_Pasek\\0004.jpg"
+    },
+    {
+      "person": "Justine_Pasek",
+      "path": "data\\lfw\\Justine_Pasek\\0003.jpg"
+    },
+    {
+      "person": "Allyson_Felix",
+      "path": "data\\lfw\\Allyson_Felix\\0003.jpg"
+    },
+    {
+      "person": "Allyson_Felix",
+      "path": "data\\lfw\\Allyson_Felix\\0004.jpg"
+    },
+    {
+      "person": "Hitomi_Soga",
+      "path": "data\\lfw\\Hitomi_Soga\\0003.jpg"
+    },
+    {
+      "person": "Hitomi_Soga",
+      "path": "data\\lfw\\Hitomi_Soga\\0005.jpg"
+    },
+    {
+      "person": "Mariah_Carey",
+      "path": "data\\lfw\\Mariah_Carey\\0004.jpg"
+    },
+    {
+      "person": "Mariah_Carey",
+      "path": "data\\lfw\\Mariah_Carey\\0006.jpg"
+    },
+    {
+      "person": "Mariah_Carey",
+      "path": "data\\lfw\\Mariah_Carey\\0005.jpg"
+    },
+    {
+      "person": "Marco_Antonio_Barrera",
+      "path": "data\\lfw\\Marco_Antonio_Barrera\\0005.jpg"
+    },
+    {
+      "person": "Marco_Antonio_Barrera",
+      "path": "data\\lfw\\Marco_Antonio_Barrera\\0002.jpg"
+    },
+    {
+      "person": "Marco_Antonio_Barrera",
+      "path": "data\\lfw\\Marco_Antonio_Barrera\\0004.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0005.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0009.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0001.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0008.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0002.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0009.jpg"
+    },
+    {
+      "person": "Ahmed_Chalabi",
+      "path": "data\\lfw\\Ahmed_Chalabi\\0001.jpg"
+    },
+    {
+      "person": "Ahmed_Chalabi",
+      "path": "data\\lfw\\Ahmed_Chalabi\\0003.jpg"
+    },
+    {
+      "person": "Monica_Seles",
+      "path": "data\\lfw\\Monica_Seles\\0004.jpg"
+    },
+    {
+      "person": "Monica_Seles",
+      "path": "data\\lfw\\Monica_Seles\\0006.jpg"
+    },
+    {
+      "person": "Monica_Seles",
+      "path": "data\\lfw\\Monica_Seles\\0001.jpg"
+    },
+    {
+      "person": "David_Wells",
+      "path": "data\\lfw\\David_Wells\\0007.jpg"
+    },
+    {
+      "person": "David_Wells",
+      "path": "data\\lfw\\David_Wells\\0005.jpg"
+    },
+    {
+      "person": "David_Wells",
+      "path": "data\\lfw\\David_Wells\\0002.jpg"
+    },
+    {
+      "person": "Vincent_Brooks",
+      "path": "data\\lfw\\Vincent_Brooks\\0002.jpg"
+    },
+    {
+      "person": "Vincent_Brooks",
+      "path": "data\\lfw\\Vincent_Brooks\\0007.jpg"
+    },
+    {
+      "person": "Vincent_Brooks",
+      "path": "data\\lfw\\Vincent_Brooks\\0001.jpg"
+    },
+    {
+      "person": "Ricardo_Sanchez",
+      "path": "data\\lfw\\Ricardo_Sanchez\\0005.jpg"
+    },
+    {
+      "person": "Ricardo_Sanchez",
+      "path": "data\\lfw\\Ricardo_Sanchez\\0004.jpg"
+    },
+    {
+      "person": "Ricardo_Sanchez",
+      "path": "data\\lfw\\Ricardo_Sanchez\\0001.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0009.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0013.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0001.jpg"
+    },
+    {
+      "person": "Madonna",
+      "path": "data\\lfw\\Madonna\\0005.jpg"
+    },
+    {
+      "person": "Madonna",
+      "path": "data\\lfw\\Madonna\\0003.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0001.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0008.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0004.jpg"
+    },
+    {
+      "person": "Paula_Radcliffe",
+      "path": "data\\lfw\\Paula_Radcliffe\\0002.jpg"
+    },
+    {
+      "person": "Paula_Radcliffe",
+      "path": "data\\lfw\\Paula_Radcliffe\\0001.jpg"
+    },
+    {
+      "person": "Paula_Radcliffe",
+      "path": "data\\lfw\\Paula_Radcliffe\\0005.jpg"
+    },
+    {
+      "person": "Enrique_Bolanos",
+      "path": "data\\lfw\\Enrique_Bolanos\\0001.jpg"
+    },
+    {
+      "person": "Enrique_Bolanos",
+      "path": "data\\lfw\\Enrique_Bolanos\\0005.jpg"
+    },
+    {
+      "person": "Binyamin_Ben-Eliezer",
+      "path": "data\\lfw\\Binyamin_Ben-Eliezer\\0004.jpg"
+    },
+    {
+      "person": "Binyamin_Ben-Eliezer",
+      "path": "data\\lfw\\Binyamin_Ben-Eliezer\\0001.jpg"
+    },
+    {
+      "person": "Binyamin_Ben-Eliezer",
+      "path": "data\\lfw\\Binyamin_Ben-Eliezer\\0005.jpg"
+    },
+    {
+      "person": "Gregg_Popovich",
+      "path": "data\\lfw\\Gregg_Popovich\\0004.jpg"
+    },
+    {
+      "person": "Gregg_Popovich",
+      "path": "data\\lfw\\Gregg_Popovich\\0002.jpg"
+    },
+    {
+      "person": "Holly_Hunter",
+      "path": "data\\lfw\\Holly_Hunter\\0001.jpg"
+    },
+    {
+      "person": "Holly_Hunter",
+      "path": "data\\lfw\\Holly_Hunter\\0004.jpg"
+    },
+    {
+      "person": "Holly_Hunter",
+      "path": "data\\lfw\\Holly_Hunter\\0002.jpg"
+    },
+    {
+      "person": "Xanana_Gusmao",
+      "path": "data\\lfw\\Xanana_Gusmao\\0001.jpg"
+    },
+    {
+      "person": "Xanana_Gusmao",
+      "path": "data\\lfw\\Xanana_Gusmao\\0005.jpg"
+    },
+    {
+      "person": "Luis_Gonzalez_Macchi",
+      "path": "data\\lfw\\Luis_Gonzalez_Macchi\\0004.jpg"
+    },
+    {
+      "person": "Luis_Gonzalez_Macchi",
+      "path": "data\\lfw\\Luis_Gonzalez_Macchi\\0003.jpg"
+    },
+    {
+      "person": "Scott_Peterson",
+      "path": "data\\lfw\\Scott_Peterson\\0005.jpg"
+    },
+    {
+      "person": "Scott_Peterson",
+      "path": "data\\lfw\\Scott_Peterson\\0004.jpg"
+    },
+    {
+      "person": "Carla_Del_Ponte",
+      "path": "data\\lfw\\Carla_Del_Ponte\\0004.jpg"
+    },
+    {
+      "person": "Carla_Del_Ponte",
+      "path": "data\\lfw\\Carla_Del_Ponte\\0003.jpg"
+    },
+    {
+      "person": "Martina_McBride",
+      "path": "data\\lfw\\Martina_McBride\\0003.jpg"
+    },
+    {
+      "person": "Martina_McBride",
+      "path": "data\\lfw\\Martina_McBride\\0005.jpg"
+    },
+    {
+      "person": "Roman_Polanski",
+      "path": "data\\lfw\\Roman_Polanski\\0001.jpg"
+    },
+    {
+      "person": "Roman_Polanski",
+      "path": "data\\lfw\\Roman_Polanski\\0005.jpg"
+    },
+    {
+      "person": "Roman_Polanski",
+      "path": "data\\lfw\\Roman_Polanski\\0003.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0009.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0010.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0006.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0001.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0004.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0002.jpg"
+    },
+    {
+      "person": "William_Donaldson",
+      "path": "data\\lfw\\William_Donaldson\\0001.jpg"
+    },
+    {
+      "person": "William_Donaldson",
+      "path": "data\\lfw\\William_Donaldson\\0006.jpg"
+    },
+    {
+      "person": "William_Donaldson",
+      "path": "data\\lfw\\William_Donaldson\\0003.jpg"
+    },
+    {
+      "person": "Jose_Manuel_Durao_Barroso",
+      "path": "data\\lfw\\Jose_Manuel_Durao_Barroso\\0001.jpg"
+    },
+    {
+      "person": "Jose_Manuel_Durao_Barroso",
+      "path": "data\\lfw\\Jose_Manuel_Durao_Barroso\\0006.jpg"
+    },
+    {
+      "person": "Jose_Manuel_Durao_Barroso",
+      "path": "data\\lfw\\Jose_Manuel_Durao_Barroso\\0005.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0005.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0007.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0001.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0005.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0018.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0014.jpg"
+    },
+    {
+      "person": "Jake_Gyllenhaal",
+      "path": "data\\lfw\\Jake_Gyllenhaal\\0003.jpg"
+    },
+    {
+      "person": "Jake_Gyllenhaal",
+      "path": "data\\lfw\\Jake_Gyllenhaal\\0001.jpg"
+    },
+    {
+      "person": "Nadia_Petrova",
+      "path": "data\\lfw\\Nadia_Petrova\\0003.jpg"
+    },
+    {
+      "person": "Nadia_Petrova",
+      "path": "data\\lfw\\Nadia_Petrova\\0001.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0005.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0009.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0002.jpg"
+    },
+    {
+      "person": "Jon_Gruden",
+      "path": "data\\lfw\\Jon_Gruden\\0005.jpg"
+    },
+    {
+      "person": "Jon_Gruden",
+      "path": "data\\lfw\\Jon_Gruden\\0001.jpg"
+    },
+    {
+      "person": "Jon_Gruden",
+      "path": "data\\lfw\\Jon_Gruden\\0006.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0009.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0023.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0014.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0002.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0008.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0003.jpg"
+    },
+    {
+      "person": "Chen_Shui-bian",
+      "path": "data\\lfw\\Chen_Shui-bian\\0004.jpg"
+    },
+    {
+      "person": "Chen_Shui-bian",
+      "path": "data\\lfw\\Chen_Shui-bian\\0001.jpg"
+    },
+    {
+      "person": "Jim_Furyk",
+      "path": "data\\lfw\\Jim_Furyk\\0002.jpg"
+    },
+    {
+      "person": "Jim_Furyk",
+      "path": "data\\lfw\\Jim_Furyk\\0003.jpg"
+    },
+    {
+      "person": "Jim_Furyk",
+      "path": "data\\lfw\\Jim_Furyk\\0004.jpg"
+    }
+  ],
+  "val_known": [
+    {
+      "person": "Justine_Pasek",
+      "path": "data\\lfw\\Justine_Pasek\\0007.jpg"
+    },
+    {
+      "person": "Justine_Pasek",
+      "path": "data\\lfw\\Justine_Pasek\\0006.jpg"
+    },
+    {
+      "person": "Allyson_Felix",
+      "path": "data\\lfw\\Allyson_Felix\\0002.jpg"
+    },
+    {
+      "person": "Allyson_Felix",
+      "path": "data\\lfw\\Allyson_Felix\\0001.jpg"
+    },
+    {
+      "person": "Hitomi_Soga",
+      "path": "data\\lfw\\Hitomi_Soga\\0001.jpg"
+    },
+    {
+      "person": "Hitomi_Soga",
+      "path": "data\\lfw\\Hitomi_Soga\\0002.jpg"
+    },
+    {
+      "person": "Mariah_Carey",
+      "path": "data\\lfw\\Mariah_Carey\\0002.jpg"
+    },
+    {
+      "person": "Mariah_Carey",
+      "path": "data\\lfw\\Mariah_Carey\\0007.jpg"
+    },
+    {
+      "person": "Marco_Antonio_Barrera",
+      "path": "data\\lfw\\Marco_Antonio_Barrera\\0003.jpg"
+    },
+    {
+      "person": "Marco_Antonio_Barrera",
+      "path": "data\\lfw\\Marco_Antonio_Barrera\\0001.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0008.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0006.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0010.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0001.jpg"
+    },
+    {
+      "person": "Ahmed_Chalabi",
+      "path": "data\\lfw\\Ahmed_Chalabi\\0004.jpg"
+    },
+    {
+      "person": "Ahmed_Chalabi",
+      "path": "data\\lfw\\Ahmed_Chalabi\\0005.jpg"
+    },
+    {
+      "person": "Monica_Seles",
+      "path": "data\\lfw\\Monica_Seles\\0005.jpg"
+    },
+    {
+      "person": "Monica_Seles",
+      "path": "data\\lfw\\Monica_Seles\\0002.jpg"
+    },
+    {
+      "person": "David_Wells",
+      "path": "data\\lfw\\David_Wells\\0001.jpg"
+    },
+    {
+      "person": "David_Wells",
+      "path": "data\\lfw\\David_Wells\\0006.jpg"
+    },
+    {
+      "person": "Vincent_Brooks",
+      "path": "data\\lfw\\Vincent_Brooks\\0003.jpg"
+    },
+    {
+      "person": "Vincent_Brooks",
+      "path": "data\\lfw\\Vincent_Brooks\\0004.jpg"
+    },
+    {
+      "person": "Ricardo_Sanchez",
+      "path": "data\\lfw\\Ricardo_Sanchez\\0006.jpg"
+    },
+    {
+      "person": "Ricardo_Sanchez",
+      "path": "data\\lfw\\Ricardo_Sanchez\\0002.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0003.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0008.jpg"
+    },
+    {
+      "person": "Madonna",
+      "path": "data\\lfw\\Madonna\\0004.jpg"
+    },
+    {
+      "person": "Madonna",
+      "path": "data\\lfw\\Madonna\\0002.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0007.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0005.jpg"
+    },
+    {
+      "person": "Paula_Radcliffe",
+      "path": "data\\lfw\\Paula_Radcliffe\\0006.jpg"
+    },
+    {
+      "person": "Paula_Radcliffe",
+      "path": "data\\lfw\\Paula_Radcliffe\\0004.jpg"
+    },
+    {
+      "person": "Enrique_Bolanos",
+      "path": "data\\lfw\\Enrique_Bolanos\\0003.jpg"
+    },
+    {
+      "person": "Enrique_Bolanos",
+      "path": "data\\lfw\\Enrique_Bolanos\\0004.jpg"
+    },
+    {
+      "person": "Binyamin_Ben-Eliezer",
+      "path": "data\\lfw\\Binyamin_Ben-Eliezer\\0003.jpg"
+    },
+    {
+      "person": "Binyamin_Ben-Eliezer",
+      "path": "data\\lfw\\Binyamin_Ben-Eliezer\\0002.jpg"
+    },
+    {
+      "person": "Gregg_Popovich",
+      "path": "data\\lfw\\Gregg_Popovich\\0001.jpg"
+    },
+    {
+      "person": "Gregg_Popovich",
+      "path": "data\\lfw\\Gregg_Popovich\\0005.jpg"
+    },
+    {
+      "person": "Holly_Hunter",
+      "path": "data\\lfw\\Holly_Hunter\\0003.jpg"
+    },
+    {
+      "person": "Holly_Hunter",
+      "path": "data\\lfw\\Holly_Hunter\\0006.jpg"
+    },
+    {
+      "person": "Xanana_Gusmao",
+      "path": "data\\lfw\\Xanana_Gusmao\\0003.jpg"
+    },
+    {
+      "person": "Xanana_Gusmao",
+      "path": "data\\lfw\\Xanana_Gusmao\\0002.jpg"
+    },
+    {
+      "person": "Luis_Gonzalez_Macchi",
+      "path": "data\\lfw\\Luis_Gonzalez_Macchi\\0005.jpg"
+    },
+    {
+      "person": "Luis_Gonzalez_Macchi",
+      "path": "data\\lfw\\Luis_Gonzalez_Macchi\\0001.jpg"
+    },
+    {
+      "person": "Scott_Peterson",
+      "path": "data\\lfw\\Scott_Peterson\\0003.jpg"
+    },
+    {
+      "person": "Scott_Peterson",
+      "path": "data\\lfw\\Scott_Peterson\\0002.jpg"
+    },
+    {
+      "person": "Carla_Del_Ponte",
+      "path": "data\\lfw\\Carla_Del_Ponte\\0001.jpg"
+    },
+    {
+      "person": "Carla_Del_Ponte",
+      "path": "data\\lfw\\Carla_Del_Ponte\\0005.jpg"
+    },
+    {
+      "person": "Martina_McBride",
+      "path": "data\\lfw\\Martina_McBride\\0004.jpg"
+    },
+    {
+      "person": "Martina_McBride",
+      "path": "data\\lfw\\Martina_McBride\\0002.jpg"
+    },
+    {
+      "person": "Roman_Polanski",
+      "path": "data\\lfw\\Roman_Polanski\\0002.jpg"
+    },
+    {
+      "person": "Roman_Polanski",
+      "path": "data\\lfw\\Roman_Polanski\\0006.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0011.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0012.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0003.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0007.jpg"
+    },
+    {
+      "person": "William_Donaldson",
+      "path": "data\\lfw\\William_Donaldson\\0002.jpg"
+    },
+    {
+      "person": "William_Donaldson",
+      "path": "data\\lfw\\William_Donaldson\\0004.jpg"
+    },
+    {
+      "person": "Jose_Manuel_Durao_Barroso",
+      "path": "data\\lfw\\Jose_Manuel_Durao_Barroso\\0002.jpg"
+    },
+    {
+      "person": "Jose_Manuel_Durao_Barroso",
+      "path": "data\\lfw\\Jose_Manuel_Durao_Barroso\\0003.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0004.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0003.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0010.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0001.jpg"
+    },
+    {
+      "person": "Jake_Gyllenhaal",
+      "path": "data\\lfw\\Jake_Gyllenhaal\\0002.jpg"
+    },
+    {
+      "person": "Jake_Gyllenhaal",
+      "path": "data\\lfw\\Jake_Gyllenhaal\\0004.jpg"
+    },
+    {
+      "person": "Nadia_Petrova",
+      "path": "data\\lfw\\Nadia_Petrova\\0005.jpg"
+    },
+    {
+      "person": "Nadia_Petrova",
+      "path": "data\\lfw\\Nadia_Petrova\\0004.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0004.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0006.jpg"
+    },
+    {
+      "person": "Jon_Gruden",
+      "path": "data\\lfw\\Jon_Gruden\\0007.jpg"
+    },
+    {
+      "person": "Jon_Gruden",
+      "path": "data\\lfw\\Jon_Gruden\\0003.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0017.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0025.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0006.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0004.jpg"
+    },
+    {
+      "person": "Chen_Shui-bian",
+      "path": "data\\lfw\\Chen_Shui-bian\\0005.jpg"
+    },
+    {
+      "person": "Chen_Shui-bian",
+      "path": "data\\lfw\\Chen_Shui-bian\\0002.jpg"
+    },
+    {
+      "person": "Jim_Furyk",
+      "path": "data\\lfw\\Jim_Furyk\\0005.jpg"
+    },
+    {
+      "person": "Jim_Furyk",
+      "path": "data\\lfw\\Jim_Furyk\\0001.jpg"
+    }
+  ],
+  "val_unknown": [
+    {
+      "person": "Thomas_OBrien",
+      "path": "data\\lfw\\Thomas_OBrien\\0006.jpg"
+    },
+    {
+      "person": "Thomas_OBrien",
+      "path": "data\\lfw\\Thomas_OBrien\\0005.jpg"
+    },
+    {
+      "person": "Thomas_OBrien",
+      "path": "data\\lfw\\Thomas_OBrien\\0008.jpg"
+    },
+    {
+      "person": "Thomas_OBrien",
+      "path": "data\\lfw\\Thomas_OBrien\\0009.jpg"
+    },
+    {
+      "person": "Richard_Armitage",
+      "path": "data\\lfw\\Richard_Armitage\\0006.jpg"
+    },
+    {
+      "person": "Richard_Armitage",
+      "path": "data\\lfw\\Richard_Armitage\\0009.jpg"
+    },
+    {
+      "person": "Richard_Armitage",
+      "path": "data\\lfw\\Richard_Armitage\\0004.jpg"
+    },
+    {
+      "person": "Richard_Armitage",
+      "path": "data\\lfw\\Richard_Armitage\\0001.jpg"
+    },
+    {
+      "person": "Vicente_Fox",
+      "path": "data\\lfw\\Vicente_Fox\\0005.jpg"
+    },
+    {
+      "person": "Vicente_Fox",
+      "path": "data\\lfw\\Vicente_Fox\\0027.jpg"
+    },
+    {
+      "person": "Vicente_Fox",
+      "path": "data\\lfw\\Vicente_Fox\\0018.jpg"
+    },
+    {
+      "person": "Vicente_Fox",
+      "path": "data\\lfw\\Vicente_Fox\\0025.jpg"
+    },
+    {
+      "person": "John_Edwards",
+      "path": "data\\lfw\\John_Edwards\\0001.jpg"
+    },
+    {
+      "person": "John_Edwards",
+      "path": "data\\lfw\\John_Edwards\\0005.jpg"
+    },
+    {
+      "person": "John_Edwards",
+      "path": "data\\lfw\\John_Edwards\\0003.jpg"
+    },
+    {
+      "person": "John_Edwards",
+      "path": "data\\lfw\\John_Edwards\\0007.jpg"
+    },
+    {
+      "person": "Diana_Krall",
+      "path": "data\\lfw\\Diana_Krall\\0001.jpg"
+    },
+    {
+      "person": "Diana_Krall",
+      "path": "data\\lfw\\Diana_Krall\\0003.jpg"
+    },
+    {
+      "person": "Diana_Krall",
+      "path": "data\\lfw\\Diana_Krall\\0002.jpg"
+    },
+    {
+      "person": "Diana_Krall",
+      "path": "data\\lfw\\Diana_Krall\\0004.jpg"
+    },
+    {
+      "person": "David_Heymann",
+      "path": "data\\lfw\\David_Heymann\\0004.jpg"
+    },
+    {
+      "person": "David_Heymann",
+      "path": "data\\lfw\\David_Heymann\\0001.jpg"
+    },
+    {
+      "person": "David_Heymann",
+      "path": "data\\lfw\\David_Heymann\\0002.jpg"
+    },
+    {
+      "person": "David_Heymann",
+      "path": "data\\lfw\\David_Heymann\\0003.jpg"
+    },
+    {
+      "person": "Colin_Farrell",
+      "path": "data\\lfw\\Colin_Farrell\\0003.jpg"
+    },
+    {
+      "person": "Colin_Farrell",
+      "path": "data\\lfw\\Colin_Farrell\\0001.jpg"
+    },
+    {
+      "person": "Colin_Farrell",
+      "path": "data\\lfw\\Colin_Farrell\\0006.jpg"
+    },
+    {
+      "person": "Colin_Farrell",
+      "path": "data\\lfw\\Colin_Farrell\\0008.jpg"
+    },
+    {
+      "person": "Steven_Spielberg",
+      "path": "data\\lfw\\Steven_Spielberg\\0006.jpg"
+    },
+    {
+      "person": "Steven_Spielberg",
+      "path": "data\\lfw\\Steven_Spielberg\\0005.jpg"
+    },
+    {
+      "person": "Steven_Spielberg",
+      "path": "data\\lfw\\Steven_Spielberg\\0001.jpg"
+    },
+    {
+      "person": "Steven_Spielberg",
+      "path": "data\\lfw\\Steven_Spielberg\\0007.jpg"
+    },
+    {
+      "person": "George_W_Bush",
+      "path": "data\\lfw\\George_W_Bush\\0464.jpg"
+    },
+    {
+      "person": "George_W_Bush",
+      "path": "data\\lfw\\George_W_Bush\\0467.jpg"
+    },
+    {
+      "person": "George_W_Bush",
+      "path": "data\\lfw\\George_W_Bush\\0410.jpg"
+    },
+    {
+      "person": "George_W_Bush",
+      "path": "data\\lfw\\George_W_Bush\\0361.jpg"
+    },
+    {
+      "person": "Shimon_Peres",
+      "path": "data\\lfw\\Shimon_Peres\\0002.jpg"
+    },
+    {
+      "person": "Shimon_Peres",
+      "path": "data\\lfw\\Shimon_Peres\\0007.jpg"
+    },
+    {
+      "person": "Shimon_Peres",
+      "path": "data\\lfw\\Shimon_Peres\\0006.jpg"
+    },
+    {
+      "person": "Shimon_Peres",
+      "path": "data\\lfw\\Shimon_Peres\\0005.jpg"
+    },
+    {
+      "person": "Li_Zhaoxing",
+      "path": "data\\lfw\\Li_Zhaoxing\\0002.jpg"
+    },
+    {
+      "person": "Li_Zhaoxing",
+      "path": "data\\lfw\\Li_Zhaoxing\\0001.jpg"
+    },
+    {
+      "person": "Li_Zhaoxing",
+      "path": "data\\lfw\\Li_Zhaoxing\\0006.jpg"
+    },
+    {
+      "person": "Li_Zhaoxing",
+      "path": "data\\lfw\\Li_Zhaoxing\\0008.jpg"
+    },
+    {
+      "person": "Jay_Garner",
+      "path": "data\\lfw\\Jay_Garner\\0005.jpg"
+    },
+    {
+      "person": "Jay_Garner",
+      "path": "data\\lfw\\Jay_Garner\\0002.jpg"
+    },
+    {
+      "person": "Jay_Garner",
+      "path": "data\\lfw\\Jay_Garner\\0003.jpg"
+    },
+    {
+      "person": "Jay_Garner",
+      "path": "data\\lfw\\Jay_Garner\\0006.jpg"
+    },
+    {
+      "person": "Benazir_Bhutto",
+      "path": "data\\lfw\\Benazir_Bhutto\\0004.jpg"
+    },
+    {
+      "person": "Benazir_Bhutto",
+      "path": "data\\lfw\\Benazir_Bhutto\\0002.jpg"
+    },
+    {
+      "person": "Benazir_Bhutto",
+      "path": "data\\lfw\\Benazir_Bhutto\\0005.jpg"
+    },
+    {
+      "person": "Benazir_Bhutto",
+      "path": "data\\lfw\\Benazir_Bhutto\\0001.jpg"
+    },
+    {
+      "person": "Harrison_Ford",
+      "path": "data\\lfw\\Harrison_Ford\\0009.jpg"
+    },
+    {
+      "person": "Harrison_Ford",
+      "path": "data\\lfw\\Harrison_Ford\\0002.jpg"
+    },
+    {
+      "person": "Harrison_Ford",
+      "path": "data\\lfw\\Harrison_Ford\\0007.jpg"
+    },
+    {
+      "person": "Harrison_Ford",
+      "path": "data\\lfw\\Harrison_Ford\\0005.jpg"
+    },
+    {
+      "person": "Michael_Douglas",
+      "path": "data\\lfw\\Michael_Douglas\\0006.jpg"
+    },
+    {
+      "person": "Michael_Douglas",
+      "path": "data\\lfw\\Michael_Douglas\\0004.jpg"
+    },
+    {
+      "person": "Michael_Douglas",
+      "path": "data\\lfw\\Michael_Douglas\\0005.jpg"
+    },
+    {
+      "person": "Michael_Douglas",
+      "path": "data\\lfw\\Michael_Douglas\\0001.jpg"
+    },
+    {
+      "person": "Gerry_Adams",
+      "path": "data\\lfw\\Gerry_Adams\\0003.jpg"
+    },
+    {
+      "person": "Gerry_Adams",
+      "path": "data\\lfw\\Gerry_Adams\\0002.jpg"
+    },
+    {
+      "person": "Gerry_Adams",
+      "path": "data\\lfw\\Gerry_Adams\\0008.jpg"
+    },
+    {
+      "person": "Gerry_Adams",
+      "path": "data\\lfw\\Gerry_Adams\\0001.jpg"
+    },
+    {
+      "person": "Bill_Frist",
+      "path": "data\\lfw\\Bill_Frist\\0006.jpg"
+    },
+    {
+      "person": "Bill_Frist",
+      "path": "data\\lfw\\Bill_Frist\\0009.jpg"
+    },
+    {
+      "person": "Bill_Frist",
+      "path": "data\\lfw\\Bill_Frist\\0008.jpg"
+    },
+    {
+      "person": "Bill_Frist",
+      "path": "data\\lfw\\Bill_Frist\\0001.jpg"
+    },
+    {
+      "person": "Arnold_Schwarzenegger",
+      "path": "data\\lfw\\Arnold_Schwarzenegger\\0007.jpg"
+    },
+    {
+      "person": "Arnold_Schwarzenegger",
+      "path": "data\\lfw\\Arnold_Schwarzenegger\\0040.jpg"
+    },
+    {
+      "person": "Arnold_Schwarzenegger",
+      "path": "data\\lfw\\Arnold_Schwarzenegger\\0003.jpg"
+    },
+    {
+      "person": "Arnold_Schwarzenegger",
+      "path": "data\\lfw\\Arnold_Schwarzenegger\\0021.jpg"
+    },
+    {
+      "person": "Gray_Davis",
+      "path": "data\\lfw\\Gray_Davis\\0024.jpg"
+    },
+    {
+      "person": "Gray_Davis",
+      "path": "data\\lfw\\Gray_Davis\\0019.jpg"
+    },
+    {
+      "person": "Gray_Davis",
+      "path": "data\\lfw\\Gray_Davis\\0012.jpg"
+    },
+    {
+      "person": "Gray_Davis",
+      "path": "data\\lfw\\Gray_Davis\\0009.jpg"
+    },
+    {
+      "person": "Al_Gore",
+      "path": "data\\lfw\\Al_Gore\\0002.jpg"
+    },
+    {
+      "person": "Al_Gore",
+      "path": "data\\lfw\\Al_Gore\\0006.jpg"
+    },
+    {
+      "person": "Al_Gore",
+      "path": "data\\lfw\\Al_Gore\\0003.jpg"
+    },
+    {
+      "person": "Al_Gore",
+      "path": "data\\lfw\\Al_Gore\\0001.jpg"
+    }
+  ],
+  "test_known": [
+    {
+      "person": "Justine_Pasek",
+      "path": "data\\lfw\\Justine_Pasek\\0001.jpg"
+    },
+    {
+      "person": "Justine_Pasek",
+      "path": "data\\lfw\\Justine_Pasek\\0005.jpg"
+    },
+    {
+      "person": "Allyson_Felix",
+      "path": "data\\lfw\\Allyson_Felix\\0005.jpg"
+    },
+    {
+      "person": "Hitomi_Soga",
+      "path": "data\\lfw\\Hitomi_Soga\\0004.jpg"
+    },
+    {
+      "person": "Mariah_Carey",
+      "path": "data\\lfw\\Mariah_Carey\\0001.jpg"
+    },
+    {
+      "person": "Mariah_Carey",
+      "path": "data\\lfw\\Mariah_Carey\\0003.jpg"
+    },
+    {
+      "person": "Marco_Antonio_Barrera",
+      "path": "data\\lfw\\Marco_Antonio_Barrera\\0006.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0002.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0007.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0004.jpg"
+    },
+    {
+      "person": "Vaclav_Havel",
+      "path": "data\\lfw\\Vaclav_Havel\\0003.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0014.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0015.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0003.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0005.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0004.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0011.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0007.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0013.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0006.jpg"
+    },
+    {
+      "person": "Bill_Simon",
+      "path": "data\\lfw\\Bill_Simon\\0012.jpg"
+    },
+    {
+      "person": "Ahmed_Chalabi",
+      "path": "data\\lfw\\Ahmed_Chalabi\\0002.jpg"
+    },
+    {
+      "person": "Monica_Seles",
+      "path": "data\\lfw\\Monica_Seles\\0003.jpg"
+    },
+    {
+      "person": "David_Wells",
+      "path": "data\\lfw\\David_Wells\\0003.jpg"
+    },
+    {
+      "person": "David_Wells",
+      "path": "data\\lfw\\David_Wells\\0004.jpg"
+    },
+    {
+      "person": "Vincent_Brooks",
+      "path": "data\\lfw\\Vincent_Brooks\\0005.jpg"
+    },
+    {
+      "person": "Vincent_Brooks",
+      "path": "data\\lfw\\Vincent_Brooks\\0006.jpg"
+    },
+    {
+      "person": "Ricardo_Sanchez",
+      "path": "data\\lfw\\Ricardo_Sanchez\\0003.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0005.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0004.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0002.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0012.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0011.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0006.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0007.jpg"
+    },
+    {
+      "person": "Edmund_Stoiber",
+      "path": "data\\lfw\\Edmund_Stoiber\\0010.jpg"
+    },
+    {
+      "person": "Madonna",
+      "path": "data\\lfw\\Madonna\\0001.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0003.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0009.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0012.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0010.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0006.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0011.jpg"
+    },
+    {
+      "person": "Jeb_Bush",
+      "path": "data\\lfw\\Jeb_Bush\\0002.jpg"
+    },
+    {
+      "person": "Paula_Radcliffe",
+      "path": "data\\lfw\\Paula_Radcliffe\\0003.jpg"
+    },
+    {
+      "person": "Enrique_Bolanos",
+      "path": "data\\lfw\\Enrique_Bolanos\\0002.jpg"
+    },
+    {
+      "person": "Binyamin_Ben-Eliezer",
+      "path": "data\\lfw\\Binyamin_Ben-Eliezer\\0007.jpg"
+    },
+    {
+      "person": "Binyamin_Ben-Eliezer",
+      "path": "data\\lfw\\Binyamin_Ben-Eliezer\\0006.jpg"
+    },
+    {
+      "person": "Gregg_Popovich",
+      "path": "data\\lfw\\Gregg_Popovich\\0003.jpg"
+    },
+    {
+      "person": "Holly_Hunter",
+      "path": "data\\lfw\\Holly_Hunter\\0005.jpg"
+    },
+    {
+      "person": "Holly_Hunter",
+      "path": "data\\lfw\\Holly_Hunter\\0007.jpg"
+    },
+    {
+      "person": "Xanana_Gusmao",
+      "path": "data\\lfw\\Xanana_Gusmao\\0004.jpg"
+    },
+    {
+      "person": "Luis_Gonzalez_Macchi",
+      "path": "data\\lfw\\Luis_Gonzalez_Macchi\\0002.jpg"
+    },
+    {
+      "person": "Scott_Peterson",
+      "path": "data\\lfw\\Scott_Peterson\\0001.jpg"
+    },
+    {
+      "person": "Carla_Del_Ponte",
+      "path": "data\\lfw\\Carla_Del_Ponte\\0002.jpg"
+    },
+    {
+      "person": "Martina_McBride",
+      "path": "data\\lfw\\Martina_McBride\\0001.jpg"
+    },
+    {
+      "person": "Roman_Polanski",
+      "path": "data\\lfw\\Roman_Polanski\\0004.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0017.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0020.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0018.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0003.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0004.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0007.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0002.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0014.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0019.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0015.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0001.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0005.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0008.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0013.jpg"
+    },
+    {
+      "person": "Igor_Ivanov",
+      "path": "data\\lfw\\Igor_Ivanov\\0016.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0005.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0006.jpg"
+    },
+    {
+      "person": "Michael_Chang",
+      "path": "data\\lfw\\Michael_Chang\\0008.jpg"
+    },
+    {
+      "person": "William_Donaldson",
+      "path": "data\\lfw\\William_Donaldson\\0005.jpg"
+    },
+    {
+      "person": "William_Donaldson",
+      "path": "data\\lfw\\William_Donaldson\\0007.jpg"
+    },
+    {
+      "person": "Jose_Manuel_Durao_Barroso",
+      "path": "data\\lfw\\Jose_Manuel_Durao_Barroso\\0004.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0002.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0006.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0008.jpg"
+    },
+    {
+      "person": "Bill_Graham",
+      "path": "data\\lfw\\Bill_Graham\\0009.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0013.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0015.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0016.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0007.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0004.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0012.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0003.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0002.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0017.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0006.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0011.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0009.jpg"
+    },
+    {
+      "person": "Lance_Armstrong",
+      "path": "data\\lfw\\Lance_Armstrong\\0008.jpg"
+    },
+    {
+      "person": "Jake_Gyllenhaal",
+      "path": "data\\lfw\\Jake_Gyllenhaal\\0005.jpg"
+    },
+    {
+      "person": "Nadia_Petrova",
+      "path": "data\\lfw\\Nadia_Petrova\\0002.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0003.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0001.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0008.jpg"
+    },
+    {
+      "person": "Jeong_Se-hyun",
+      "path": "data\\lfw\\Jeong_Se-hyun\\0007.jpg"
+    },
+    {
+      "person": "Jon_Gruden",
+      "path": "data\\lfw\\Jon_Gruden\\0002.jpg"
+    },
+    {
+      "person": "Jon_Gruden",
+      "path": "data\\lfw\\Jon_Gruden\\0004.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0010.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0004.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0021.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0016.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0012.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0008.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0003.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0007.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0027.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0002.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0019.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0024.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0001.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0018.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0020.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0005.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0015.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0006.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0028.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0026.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0022.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0011.jpg"
+    },
+    {
+      "person": "Jack_Straw",
+      "path": "data\\lfw\\Jack_Straw\\0013.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0001.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0009.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0010.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0011.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0005.jpg"
+    },
+    {
+      "person": "Sergio_Vieira_De_Mello",
+      "path": "data\\lfw\\Sergio_Vieira_De_Mello\\0007.jpg"
+    },
+    {
+      "person": "Chen_Shui-bian",
+      "path": "data\\lfw\\Chen_Shui-bian\\0003.jpg"
+    },
+    {
+      "person": "Jim_Furyk",
+      "path": "data\\lfw\\Jim_Furyk\\0006.jpg"
+    }
+  ],
+  "test_unknown": [
+    {
+      "person": "Jackie_Chan",
+      "path": "data\\lfw\\Jackie_Chan\\0001.jpg"
+    },
+    {
+      "person": "Jackie_Chan",
+      "path": "data\\lfw\\Jackie_Chan\\0005.jpg"
+    },
+    {
+      "person": "Jackie_Chan",
+      "path": "data\\lfw\\Jackie_Chan\\0012.jpg"
+    },
+    {
+      "person": "Jackie_Chan",
+      "path": "data\\lfw\\Jackie_Chan\\0006.jpg"
+    },
+    {
+      "person": "Jacques_Rogge",
+      "path": "data\\lfw\\Jacques_Rogge\\0004.jpg"
+    },
+    {
+      "person": "Jacques_Rogge",
+      "path": "data\\lfw\\Jacques_Rogge\\0010.jpg"
+    },
+    {
+      "person": "Jacques_Rogge",
+      "path": "data\\lfw\\Jacques_Rogge\\0001.jpg"
+    },
+    {
+      "person": "Jacques_Rogge",
+      "path": "data\\lfw\\Jacques_Rogge\\0005.jpg"
+    },
+    {
+      "person": "Carrie-Anne_Moss",
+      "path": "data\\lfw\\Carrie-Anne_Moss\\0002.jpg"
+    },
+    {
+      "person": "Carrie-Anne_Moss",
+      "path": "data\\lfw\\Carrie-Anne_Moss\\0003.jpg"
+    },
+    {
+      "person": "Carrie-Anne_Moss",
+      "path": "data\\lfw\\Carrie-Anne_Moss\\0004.jpg"
+    },
+    {
+      "person": "Carrie-Anne_Moss",
+      "path": "data\\lfw\\Carrie-Anne_Moss\\0005.jpg"
+    },
+    {
+      "person": "Oswaldo_Paya",
+      "path": "data\\lfw\\Oswaldo_Paya\\0005.jpg"
+    },
+    {
+      "person": "Oswaldo_Paya",
+      "path": "data\\lfw\\Oswaldo_Paya\\0002.jpg"
+    },
+    {
+      "person": "Oswaldo_Paya",
+      "path": "data\\lfw\\Oswaldo_Paya\\0003.jpg"
+    },
+    {
+      "person": "Oswaldo_Paya",
+      "path": "data\\lfw\\Oswaldo_Paya\\0001.jpg"
+    },
+    {
+      "person": "Larry_Brown",
+      "path": "data\\lfw\\Larry_Brown\\0004.jpg"
+    },
+    {
+      "person": "Larry_Brown",
+      "path": "data\\lfw\\Larry_Brown\\0006.jpg"
+    },
+    {
+      "person": "Larry_Brown",
+      "path": "data\\lfw\\Larry_Brown\\0003.jpg"
+    },
+    {
+      "person": "Larry_Brown",
+      "path": "data\\lfw\\Larry_Brown\\0001.jpg"
+    },
+    {
+      "person": "Bill_Clinton",
+      "path": "data\\lfw\\Bill_Clinton\\0013.jpg"
+    },
+    {
+      "person": "Bill_Clinton",
+      "path": "data\\lfw\\Bill_Clinton\\0016.jpg"
+    },
+    {
+      "person": "Bill_Clinton",
+      "path": "data\\lfw\\Bill_Clinton\\0019.jpg"
+    },
+    {
+      "person": "Bill_Clinton",
+      "path": "data\\lfw\\Bill_Clinton\\0024.jpg"
+    },
+    {
+      "person": "Recep_Tayyip_Erdogan",
+      "path": "data\\lfw\\Recep_Tayyip_Erdogan\\0017.jpg"
+    },
+    {
+      "person": "Recep_Tayyip_Erdogan",
+      "path": "data\\lfw\\Recep_Tayyip_Erdogan\\0029.jpg"
+    },
+    {
+      "person": "Recep_Tayyip_Erdogan",
+      "path": "data\\lfw\\Recep_Tayyip_Erdogan\\0016.jpg"
+    },
+    {
+      "person": "Recep_Tayyip_Erdogan",
+      "path": "data\\lfw\\Recep_Tayyip_Erdogan\\0014.jpg"
+    },
+    {
+      "person": "Brad_Johnson",
+      "path": "data\\lfw\\Brad_Johnson\\0002.jpg"
+    },
+    {
+      "person": "Brad_Johnson",
+      "path": "data\\lfw\\Brad_Johnson\\0001.jpg"
+    },
+    {
+      "person": "Brad_Johnson",
+      "path": "data\\lfw\\Brad_Johnson\\0004.jpg"
+    },
+    {
+      "person": "Brad_Johnson",
+      "path": "data\\lfw\\Brad_Johnson\\0005.jpg"
+    },
+    {
+      "person": "Clay_Aiken",
+      "path": "data\\lfw\\Clay_Aiken\\0004.jpg"
+    },
+    {
+      "person": "Clay_Aiken",
+      "path": "data\\lfw\\Clay_Aiken\\0006.jpg"
+    },
+    {
+      "person": "Clay_Aiken",
+      "path": "data\\lfw\\Clay_Aiken\\0003.jpg"
+    },
+    {
+      "person": "Clay_Aiken",
+      "path": "data\\lfw\\Clay_Aiken\\0005.jpg"
+    },
+    {
+      "person": "Robert_Mueller",
+      "path": "data\\lfw\\Robert_Mueller\\0005.jpg"
+    },
+    {
+      "person": "Robert_Mueller",
+      "path": "data\\lfw\\Robert_Mueller\\0004.jpg"
+    },
+    {
+      "person": "Robert_Mueller",
+      "path": "data\\lfw\\Robert_Mueller\\0002.jpg"
+    },
+    {
+      "person": "Robert_Mueller",
+      "path": "data\\lfw\\Robert_Mueller\\0003.jpg"
+    },
+    {
+      "person": "Pete_Sampras",
+      "path": "data\\lfw\\Pete_Sampras\\0021.jpg"
+    },
+    {
+      "person": "Pete_Sampras",
+      "path": "data\\lfw\\Pete_Sampras\\0003.jpg"
+    },
+    {
+      "person": "Pete_Sampras",
+      "path": "data\\lfw\\Pete_Sampras\\0018.jpg"
+    },
+    {
+      "person": "Pete_Sampras",
+      "path": "data\\lfw\\Pete_Sampras\\0019.jpg"
+    },
+    {
+      "person": "Ari_Fleischer",
+      "path": "data\\lfw\\Ari_Fleischer\\0002.jpg"
+    },
+    {
+      "person": "Ari_Fleischer",
+      "path": "data\\lfw\\Ari_Fleischer\\0011.jpg"
+    },
+    {
+      "person": "Ari_Fleischer",
+      "path": "data\\lfw\\Ari_Fleischer\\0008.jpg"
+    },
+    {
+      "person": "Ari_Fleischer",
+      "path": "data\\lfw\\Ari_Fleischer\\0009.jpg"
+    },
+    {
+      "person": "Jimmy_Carter",
+      "path": "data\\lfw\\Jimmy_Carter\\0006.jpg"
+    },
+    {
+      "person": "Jimmy_Carter",
+      "path": "data\\lfw\\Jimmy_Carter\\0008.jpg"
+    },
+    {
+      "person": "Jimmy_Carter",
+      "path": "data\\lfw\\Jimmy_Carter\\0002.jpg"
+    },
+    {
+      "person": "Jimmy_Carter",
+      "path": "data\\lfw\\Jimmy_Carter\\0001.jpg"
+    },
+    {
+      "person": "Lucio_Gutierrez",
+      "path": "data\\lfw\\Lucio_Gutierrez\\0011.jpg"
+    },
+    {
+      "person": "Lucio_Gutierrez",
+      "path": "data\\lfw\\Lucio_Gutierrez\\0010.jpg"
+    },
+    {
+      "person": "Lucio_Gutierrez",
+      "path": "data\\lfw\\Lucio_Gutierrez\\0012.jpg"
+    },
+    {
+      "person": "Lucio_Gutierrez",
+      "path": "data\\lfw\\Lucio_Gutierrez\\0003.jpg"
+    },
+    {
+      "person": "Charles_Taylor",
+      "path": "data\\lfw\\Charles_Taylor\\0008.jpg"
+    },
+    {
+      "person": "Charles_Taylor",
+      "path": "data\\lfw\\Charles_Taylor\\0007.jpg"
+    },
+    {
+      "person": "Charles_Taylor",
+      "path": "data\\lfw\\Charles_Taylor\\0009.jpg"
+    },
+    {
+      "person": "Charles_Taylor",
+      "path": "data\\lfw\\Charles_Taylor\\0003.jpg"
+    },
+    {
+      "person": "Sean_OKeefe",
+      "path": "data\\lfw\\Sean_OKeefe\\0005.jpg"
+    },
+    {
+      "person": "Sean_OKeefe",
+      "path": "data\\lfw\\Sean_OKeefe\\0003.jpg"
+    },
+    {
+      "person": "Sean_OKeefe",
+      "path": "data\\lfw\\Sean_OKeefe\\0004.jpg"
+    },
+    {
+      "person": "Sean_OKeefe",
+      "path": "data\\lfw\\Sean_OKeefe\\0002.jpg"
+    },
+    {
+      "person": "Michael_Bloomberg",
+      "path": "data\\lfw\\Michael_Bloomberg\\0008.jpg"
+    },
+    {
+      "person": "Michael_Bloomberg",
+      "path": "data\\lfw\\Michael_Bloomberg\\0005.jpg"
+    },
+    {
+      "person": "Michael_Bloomberg",
+      "path": "data\\lfw\\Michael_Bloomberg\\0001.jpg"
+    },
+    {
+      "person": "Michael_Bloomberg",
+      "path": "data\\lfw\\Michael_Bloomberg\\0020.jpg"
+    },
+    {
+      "person": "Calista_Flockhart",
+      "path": "data\\lfw\\Calista_Flockhart\\0004.jpg"
+    },
+    {
+      "person": "Calista_Flockhart",
+      "path": "data\\lfw\\Calista_Flockhart\\0005.jpg"
+    },
+    {
+      "person": "Calista_Flockhart",
+      "path": "data\\lfw\\Calista_Flockhart\\0001.jpg"
+    },
+    {
+      "person": "Calista_Flockhart",
+      "path": "data\\lfw\\Calista_Flockhart\\0006.jpg"
+    },
+    {
+      "person": "Michael_Jackson",
+      "path": "data\\lfw\\Michael_Jackson\\0001.jpg"
+    },
+    {
+      "person": "Michael_Jackson",
+      "path": "data\\lfw\\Michael_Jackson\\0012.jpg"
+    },
+    {
+      "person": "Michael_Jackson",
+      "path": "data\\lfw\\Michael_Jackson\\0010.jpg"
+    },
+    {
+      "person": "Michael_Jackson",
+      "path": "data\\lfw\\Michael_Jackson\\0004.jpg"
+    },
+    {
+      "person": "Nestor_Kirchner",
+      "path": "data\\lfw\\Nestor_Kirchner\\0013.jpg"
+    },
+    {
+      "person": "Nestor_Kirchner",
+      "path": "data\\lfw\\Nestor_Kirchner\\0006.jpg"
+    },
+    {
+      "person": "Nestor_Kirchner",
+      "path": "data\\lfw\\Nestor_Kirchner\\0023.jpg"
+    },
+    {
+      "person": "Nestor_Kirchner",
+      "path": "data\\lfw\\Nestor_Kirchner\\0004.jpg"
+    }
+  ]
+}

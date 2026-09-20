@@ -36,6 +36,11 @@ const elements = {
   faceCanvas: document.getElementById('face-canvas'),
   fileInput: document.getElementById('file-input'),
   btnBrowseFile: document.getElementById('btn-browse-file'),
+  btnOpenQueryCamera: document.getElementById('btn-open-query-camera'),
+  webcamQueryWrapper: document.getElementById('webcam-query-wrapper'),
+  webcamQueryVideo: document.getElementById('webcam-query-video'),
+  btnSnapIdentify: document.getElementById('btn-snap-identify'),
+  btnCloseQueryCamera: document.getElementById('btn-close-query-camera'),
   btnClearCanvas: document.getElementById('btn-clear-canvas'),
   loadingOverlay: document.getElementById('loading-overlay'),
   thresholdSlider: document.getElementById('threshold-slider'),
@@ -101,6 +106,7 @@ const tabHeadings = {
 };
 
 let modalEnrollImages = [];
+let queryCameraStream = null;
 
 /* ==========================================================================
    Initialization & Navigation
@@ -197,6 +203,11 @@ function switchTab(tabId) {
   
   if (tabId === 'tab-gallery') {
     loadIdentities();
+  }
+
+  // Deactivate query camera if switching away from live identifier tab
+  if (tabId !== 'tab-identify') {
+    closeQueryCamera();
   }
 }
 
@@ -437,6 +448,88 @@ function initDragAndDrop() {
   });
   
   elements.btnClearCanvas.addEventListener('click', resetIdentifier);
+
+  // Live Query Webcam Listeners
+  if (elements.btnOpenQueryCamera) {
+    elements.btnOpenQueryCamera.addEventListener('click', openQueryCamera);
+  }
+  if (elements.btnCloseQueryCamera) {
+    elements.btnCloseQueryCamera.addEventListener('click', closeQueryCamera);
+  }
+  if (elements.btnSnapIdentify) {
+    elements.btnSnapIdentify.addEventListener('click', snapAndIdentifyQuery);
+  }
+}
+
+/* ==========================================================================
+   Query Webcam Capture Logic
+   ========================================================================== */
+
+async function openQueryCamera() {
+  try {
+    if (queryCameraStream) closeQueryCamera();
+    queryCameraStream = await navigator.mediaDevices.getUserMedia({
+      video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' }
+    });
+    if (elements.webcamQueryVideo) {
+      elements.webcamQueryVideo.srcObject = queryCameraStream;
+    }
+    elements.dropzone.classList.add('hidden');
+    elements.webcamQueryWrapper.classList.remove('hidden');
+  } catch (err) {
+    console.error('Query camera error:', err);
+    showToast('Camera access denied or unavailable: ' + (err.message || err.name), 'error');
+  }
+}
+
+function closeQueryCamera() {
+  if (queryCameraStream) {
+    queryCameraStream.getTracks().forEach(track => track.stop());
+    queryCameraStream = null;
+  }
+  if (elements.webcamQueryVideo) {
+    elements.webcamQueryVideo.srcObject = null;
+  }
+  if (elements.webcamQueryWrapper) {
+    elements.webcamQueryWrapper.classList.add('hidden');
+  }
+  // If no analyzed image is displayed, restore dropzone
+  if (!state.currentImage && elements.dropzone) {
+    elements.dropzone.classList.remove('hidden');
+  }
+}
+
+function snapAndIdentifyQuery() {
+  const video = elements.webcamQueryVideo;
+  if (!video || !video.videoWidth) {
+    showToast('Waiting for live camera feed...', 'error');
+    return;
+  }
+
+  // Create offscreen canvas to capture current video frame
+  const snapCanvas = document.createElement('canvas');
+  snapCanvas.width = video.videoWidth;
+  snapCanvas.height = video.videoHeight;
+  const ctx = snapCanvas.getContext('2d');
+
+  // Mirror horizontally so the snapped frame aligns with mirrored user preview
+  ctx.translate(snapCanvas.width, 0);
+  ctx.scale(-1, 1);
+  ctx.drawImage(video, 0, 0, snapCanvas.width, snapCanvas.height);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+  const dataUrl = snapCanvas.toDataURL('image/jpeg', 0.95);
+
+  // Stop camera stream immediately
+  closeQueryCamera();
+
+  // Load into currentImage and trigger identification
+  const img = new Image();
+  img.onload = () => {
+    state.currentImage = img;
+    identifyImageBase64(dataUrl);
+  };
+  img.src = dataUrl;
 }
 
 function processSelectedFile(file) {
@@ -527,6 +620,7 @@ function hideLoading() {
 }
 
 function resetIdentifier() {
+  closeQueryCamera();
   state.currentImage = null;
   state.lastIdentifyResponse = null;
   elements.dropzone.classList.remove('hidden');

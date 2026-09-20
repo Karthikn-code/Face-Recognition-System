@@ -167,7 +167,24 @@
                   <button class="btn btn-primary btn-sm" id="btn-browse-file">
                     <i class="ph ph-folder-open"></i> Browse Files
                   </button>
+                  <button class="btn btn-secondary btn-sm" id="btn-open-query-camera" type="button">
+                    <i class="ph ph-camera"></i> Live Camera
+                  </button>
                   <input type="file" id="file-input" accept="image/*" style="display: none;">
+                </div>
+              </div>
+
+              <!-- Live Webcam Query Feed -->
+              <div class="webcam-viewport-wrapper hidden" id="webcam-query-wrapper">
+                <video id="webcam-query-video" autoplay playsinline muted></video>
+                <div class="camera-scanner-reticle"></div>
+                <div class="webcam-controls-bar">
+                  <button type="button" class="btn btn-primary btn-sm" id="btn-snap-identify">
+                    <i class="ph ph-scan"></i> Snap & Identify
+                  </button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="btn-close-query-camera">
+                    <i class="ph ph-x"></i> Cancel
+                  </button>
                 </div>
               </div>
 

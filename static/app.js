@@ -4,7 +4,7 @@
 
 // Application State
 const state = {
-  activeTab: 'tab-identify',
+  activeTab: 'tab-welcome',
   threshold: 0.34,
   currentImage: null, // HTMLImageElement
   lastIdentifyResponse: null,
@@ -30,6 +30,42 @@ const elements = {
   activeThemeName: document.getElementById('active-theme-name'),
   themeMenuItems: document.querySelectorAll('.theme-menu-item'),
   
+  // Welcome Portal Elements
+  cardNewEnroll: document.getElementById('card-new-enroll'),
+  cardAlreadyEnrolled: document.getElementById('card-already-enrolled'),
+  btnCardEnroll: document.getElementById('btn-card-enroll'),
+  btnCardVerify: document.getElementById('btn-card-verify'),
+  portalEnrolledCount: document.getElementById('portal-enrolled-count'),
+  portalTemplatesCount: document.getElementById('portal-templates-count'),
+  linkOpenGallery: document.getElementById('link-open-gallery'),
+  linkOpenBenchmark: document.getElementById('link-open-benchmark'),
+  brandLogo: document.querySelector('.brand'),
+
+  // Full-Page Dedicated Enrollment Elements
+  btnBackToWelcome: document.getElementById('btn-back-to-welcome'),
+  fullEnrollNameInput: document.getElementById('full-enroll-name-input'),
+  btnFullModeCamera: document.getElementById('btn-full-mode-camera'),
+  btnFullModeUpload: document.getElementById('btn-full-mode-upload'),
+  fullEnrollCameraSection: document.getElementById('full-enroll-camera-section'),
+  fullEnrollUploadSection: document.getElementById('full-enroll-upload-section'),
+  fullEnrollVideoFeed: document.getElementById('full-enroll-video-feed'),
+  fullEnrollSnapCanvas: document.getElementById('full-enroll-snap-canvas'),
+  btnFullSnapPhoto: document.getElementById('btn-full-snap-photo'),
+  fullSnapCount: document.getElementById('full-snap-count'),
+  fullPreviewCount: document.getElementById('full-preview-count'),
+  fullEnrollDropzone: document.getElementById('full-enroll-dropzone'),
+  fullModalFileInput: document.getElementById('full-modal-file-input'),
+  fullEnrollPreviewGrid: document.getElementById('full-enroll-preview-grid'),
+  btnFullCancelEnroll: document.getElementById('btn-full-cancel-enroll'),
+  btnFullSubmitEnroll: document.getElementById('btn-full-submit-enroll'),
+
+  // Attendance Alert Banner Elements
+  attendanceAlertBanner: document.getElementById('attendance-alert-banner'),
+  attendanceAlertIcon: document.getElementById('attendance-alert-icon'),
+  attendanceAlertTitle: document.getElementById('attendance-alert-title'),
+  attendanceAlertDetails: document.getElementById('attendance-alert-details'),
+  attendanceAlertTime: document.getElementById('attendance-alert-time'),
+
   // Identifier Elements
   dropzone: document.getElementById('image-dropzone'),
   canvasWrapper: document.getElementById('canvas-wrapper'),
@@ -87,9 +123,17 @@ const elements = {
 
 // Headings by Tab
 const tabHeadings = {
+  'tab-welcome': {
+    title: 'Welcome to FaceID.ai',
+    sub: 'Enterprise Biometric Face Recognition, Verification & Attendance System powered by ArcFace.'
+  },
+  'tab-enroll': {
+    title: 'New Identity Enrollment',
+    sub: 'Register a new identity profile with up to 5 photos via live webcam or file upload.'
+  },
   'tab-identify': {
-    title: 'Live Face Identification',
-    sub: 'Detect facial landmarks, extract ArcFace embeddings, and match against gallery with unknown rejection.'
+    title: 'Live Face Identification & Attendance',
+    sub: 'Detect facial landmarks, extract ArcFace embeddings, verify identity, and record attendance.'
   },
   'tab-gallery': {
     title: 'Enrolled Identity Gallery',
@@ -115,9 +159,14 @@ let queryCameraStream = null;
 document.addEventListener('DOMContentLoaded', async () => {
   initThemeSwitcher();
   initNavigation();
+  initWelcomePortal();
+  initFullEnrollment();
   initDragAndDrop();
   initThresholdSlider();
   initEnrollmentModal();
+
+  // Set initial tab state to welcome screen
+  switchTab('tab-welcome');
   
   // Load initial server data
   await loadSystemStatus();
@@ -209,6 +258,13 @@ function switchTab(tabId) {
   if (tabId !== 'tab-identify') {
     closeQueryCamera();
   }
+
+  // Control full-page enrollment camera stream
+  if (tabId !== 'tab-enroll') {
+    stopFullCameraStream();
+  } else {
+    onOpenFullEnroll();
+  }
 }
 
 function showToast(message, type = 'info') {
@@ -234,6 +290,8 @@ async function loadSystemStatus() {
     if (data.success) {
       elements.systemBackend.textContent = data.backend;
       elements.enrolledBadge.textContent = data.enrolled_count;
+      if (elements.portalEnrolledCount) elements.portalEnrolledCount.textContent = data.enrolled_count;
+      if (elements.portalTemplatesCount) elements.portalTemplatesCount.textContent = data.total_templates;
       state.threshold = data.threshold;
       elements.thresholdSlider.value = data.threshold;
       elements.sliderThresholdVal.textContent = data.threshold.toFixed(2);
@@ -623,6 +681,9 @@ function resetIdentifier() {
   closeQueryCamera();
   state.currentImage = null;
   state.lastIdentifyResponse = null;
+  if (elements.attendanceAlertBanner) {
+    elements.attendanceAlertBanner.classList.add('hidden');
+  }
   elements.dropzone.classList.remove('hidden');
   elements.canvasWrapper.classList.add('hidden');
   elements.emptyResultsState.classList.remove('hidden');
@@ -664,6 +725,25 @@ function reEvaluateThreshold(newThresh) {
     }
   });
   
+  // Update attendance banner dynamically with threshold change
+  if (elements.attendanceAlertBanner) {
+    const knownFace = state.lastIdentifyResponse.faces.find(f => f.is_known);
+    const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    if (knownFace) {
+      elements.attendanceAlertBanner.className = 'attendance-alert-banner success';
+      elements.attendanceAlertIcon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
+      elements.attendanceAlertTitle.textContent = `Attendance Verified: ${knownFace.name.replace(/_/g, ' ')}`;
+      elements.attendanceAlertDetails.textContent = `Matched biometric template with ${(knownFace.score * 100).toFixed(1)}% cosine similarity (τ: ${newThresh.toFixed(2)}).`;
+      elements.attendanceAlertTime.textContent = timeStr;
+    } else {
+      elements.attendanceAlertBanner.className = 'attendance-alert-banner warning';
+      elements.attendanceAlertIcon.innerHTML = '<i class="ph-fill ph-warning-octagon"></i>';
+      elements.attendanceAlertTitle.textContent = 'Access Denied / Unrecognized Person';
+      elements.attendanceAlertDetails.textContent = `Candidate score (${(state.lastIdentifyResponse.faces[0].score * 100).toFixed(1)}%) is below operational threshold (τ: ${newThresh.toFixed(2)}).`;
+      elements.attendanceAlertTime.textContent = timeStr;
+    }
+  }
+
   renderCanvas(state.lastIdentifyResponse.faces);
   renderResultsCards(state.lastIdentifyResponse.faces);
 }
@@ -677,6 +757,31 @@ function displayResults(data) {
   const count = data.faces ? data.faces.length : 0;
   elements.detectedFacesPill.textContent = `${count} Face${count === 1 ? '' : 's'}`;
   
+  // Attendance Verification Banner Update
+  if (elements.attendanceAlertBanner) {
+    if (data.faces && data.faces.length > 0) {
+      const knownFace = data.faces.find(f => f.is_known);
+      elements.attendanceAlertBanner.classList.remove('hidden');
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      if (knownFace) {
+        elements.attendanceAlertBanner.className = 'attendance-alert-banner success';
+        elements.attendanceAlertIcon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
+        elements.attendanceAlertTitle.textContent = `Attendance Verified: ${knownFace.name.replace(/_/g, ' ')}`;
+        elements.attendanceAlertDetails.textContent = `Matched biometric template with ${(knownFace.score * 100).toFixed(1)}% cosine similarity (τ: ${state.threshold.toFixed(2)}).`;
+        elements.attendanceAlertTime.textContent = timeStr;
+      } else {
+        elements.attendanceAlertBanner.className = 'attendance-alert-banner warning';
+        elements.attendanceAlertIcon.innerHTML = '<i class="ph-fill ph-warning-octagon"></i>';
+        elements.attendanceAlertTitle.textContent = 'Access Denied / Unrecognized Person';
+        elements.attendanceAlertDetails.textContent = `Candidate score (${(data.faces[0].score * 100).toFixed(1)}%) is below operational threshold (τ: ${state.threshold.toFixed(2)}).`;
+        elements.attendanceAlertTime.textContent = timeStr;
+      }
+    } else {
+      elements.attendanceAlertBanner.classList.add('hidden');
+    }
+  }
+
   renderCanvas(data.faces || []);
   renderResultsCards(data.faces || []);
 }
@@ -1007,3 +1112,250 @@ function initEnrollmentModal() {
     }
   });
 }
+
+/* ==========================================================================
+   Welcome Portal Logic
+   ========================================================================== */
+
+function initWelcomePortal() {
+  if (elements.cardNewEnroll) {
+    elements.cardNewEnroll.addEventListener('click', () => switchTab('tab-enroll'));
+  }
+  if (elements.btnCardEnroll) {
+    elements.btnCardEnroll.addEventListener('click', (e) => {
+      e.stopPropagation();
+      switchTab('tab-enroll');
+    });
+  }
+  if (elements.cardAlreadyEnrolled) {
+    elements.cardAlreadyEnrolled.addEventListener('click', () => switchTab('tab-identify'));
+  }
+  if (elements.btnCardVerify) {
+    elements.btnCardVerify.addEventListener('click', (e) => {
+      e.stopPropagation();
+      switchTab('tab-identify');
+    });
+  }
+  if (elements.linkOpenGallery) {
+    elements.linkOpenGallery.addEventListener('click', () => switchTab('tab-gallery'));
+  }
+  if (elements.linkOpenBenchmark) {
+    elements.linkOpenBenchmark.addEventListener('click', () => switchTab('tab-benchmark'));
+  }
+  if (elements.brandLogo) {
+    elements.brandLogo.style.cursor = 'pointer';
+    elements.brandLogo.addEventListener('click', () => switchTab('tab-welcome'));
+  }
+}
+
+/* ==========================================================================
+   Dedicated Full-Page Enrollment Controller
+   ========================================================================== */
+
+let fullEnrollImages = [];
+let fullCameraStream = null;
+let fullEnrollMode = 'camera';
+
+function onOpenFullEnroll() {
+  setFullEnrollMode('camera');
+}
+
+function initFullEnrollment() {
+  if (elements.btnBackToWelcome) {
+    elements.btnBackToWelcome.addEventListener('click', () => switchTab('tab-welcome'));
+  }
+  if (elements.btnFullCancelEnroll) {
+    elements.btnFullCancelEnroll.addEventListener('click', () => switchTab('tab-welcome'));
+  }
+
+  // Full-page mode switcher
+  if (elements.btnFullModeCamera) {
+    elements.btnFullModeCamera.addEventListener('click', () => setFullEnrollMode('camera'));
+  }
+  if (elements.btnFullModeUpload) {
+    elements.btnFullModeUpload.addEventListener('click', () => setFullEnrollMode('upload'));
+  }
+
+  // Camera Snap button
+  if (elements.btnFullSnapPhoto) {
+    elements.btnFullSnapPhoto.addEventListener('click', () => {
+      if (fullEnrollImages.length >= 5) {
+        showToast('Maximum 5 enrollment photos allowed.', 'error');
+        return;
+      }
+      const video = elements.fullEnrollVideoFeed;
+      if (!video || !video.videoWidth) {
+        showToast('Waiting for live camera stream...', 'error');
+        return;
+      }
+      const canvas = elements.fullEnrollSnapCanvas;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      // Mirror image for natural user experience
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+      fullEnrollImages.push(dataUrl);
+      renderFullPreviewThumbnails();
+      showToast(`Captured enrollment photo (${fullEnrollImages.length}/5)!`, 'success');
+    });
+  }
+
+  // Upload Dropzone
+  if (elements.fullEnrollDropzone) {
+    elements.fullEnrollDropzone.addEventListener('click', () => elements.fullModalFileInput.click());
+  }
+
+  if (elements.fullModalFileInput) {
+    elements.fullModalFileInput.addEventListener('change', () => {
+      const files = Array.from(elements.fullModalFileInput.files);
+      const availableSlots = 5 - fullEnrollImages.length;
+      if (availableSlots <= 0) {
+        showToast('Maximum 5 enrollment photos allowed.', 'error');
+        return;
+      }
+      files.slice(0, availableSlots).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          fullEnrollImages.push(e.target.result);
+          renderFullPreviewThumbnails();
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  }
+
+  // Submit Enrollment
+  if (elements.btnFullSubmitEnroll) {
+    elements.btnFullSubmitEnroll.addEventListener('click', async () => {
+      const name = (elements.fullEnrollNameInput.value || '').trim();
+      if (!name) {
+        showToast('Please enter an identity name.', 'error');
+        elements.fullEnrollNameInput.focus();
+        return;
+      }
+      if (fullEnrollImages.length === 0) {
+        showToast('Please capture or upload at least 1 photo.', 'error');
+        return;
+      }
+
+      const imagesToEnroll = [...fullEnrollImages];
+      const originalBtnHtml = elements.btnFullSubmitEnroll.innerHTML;
+      elements.btnFullSubmitEnroll.disabled = true;
+      elements.btnFullSubmitEnroll.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Enrolling...';
+
+      showToast('Extracting ArcFace embeddings for enrollment...', 'info');
+
+      try {
+        const res = await fetch('/api/enroll', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            images: imagesToEnroll
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`Successfully enrolled '${data.name}' with ${data.added_faces} face templates!`, 'success');
+          // Reset form
+          stopFullCameraStream();
+          fullEnrollImages = [];
+          elements.fullEnrollNameInput.value = '';
+          renderFullPreviewThumbnails();
+          await loadIdentities();
+          await loadSystemStatus();
+          // Navigate to gallery to view new record
+          switchTab('tab-gallery');
+        } else {
+          showToast(data.error || 'Enrollment failed.', 'error');
+        }
+      } catch (err) {
+        showToast('Network error during enrollment: ' + (err.message || err), 'error');
+      } finally {
+        elements.btnFullSubmitEnroll.disabled = false;
+        elements.btnFullSubmitEnroll.innerHTML = originalBtnHtml;
+      }
+    });
+  }
+}
+
+function setFullEnrollMode(mode) {
+  fullEnrollMode = mode;
+  if (mode === 'camera') {
+    if (elements.btnFullModeCamera) elements.btnFullModeCamera.classList.add('active');
+    if (elements.btnFullModeUpload) elements.btnFullModeUpload.classList.remove('active');
+    if (elements.fullEnrollUploadSection) elements.fullEnrollUploadSection.classList.add('hidden');
+    if (elements.fullEnrollCameraSection) elements.fullEnrollCameraSection.classList.remove('hidden');
+    startFullCameraStream();
+  } else {
+    if (elements.btnFullModeUpload) elements.btnFullModeUpload.classList.add('active');
+    if (elements.btnFullModeCamera) elements.btnFullModeCamera.classList.remove('active');
+    if (elements.fullEnrollCameraSection) elements.fullEnrollCameraSection.classList.add('hidden');
+    if (elements.fullEnrollUploadSection) elements.fullEnrollUploadSection.classList.remove('hidden');
+    stopFullCameraStream();
+  }
+}
+
+async function startFullCameraStream() {
+  try {
+    if (fullCameraStream) stopFullCameraStream();
+    fullCameraStream = await navigator.mediaDevices.getUserMedia({
+      video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' }
+    });
+    if (elements.fullEnrollVideoFeed) {
+      elements.fullEnrollVideoFeed.srcObject = fullCameraStream;
+    }
+  } catch (err) {
+    console.error('Full enrollment camera error:', err);
+    showToast('Camera access denied or unavailable: ' + (err.message || err.name), 'error');
+    setFullEnrollMode('upload');
+  }
+}
+
+function stopFullCameraStream() {
+  if (fullCameraStream) {
+    fullCameraStream.getTracks().forEach(track => track.stop());
+    fullCameraStream = null;
+  }
+  if (elements.fullEnrollVideoFeed) {
+    elements.fullEnrollVideoFeed.srcObject = null;
+  }
+}
+
+function renderFullPreviewThumbnails() {
+  if (!elements.fullEnrollPreviewGrid) return;
+  elements.fullEnrollPreviewGrid.innerHTML = '';
+  if (elements.fullSnapCount) elements.fullSnapCount.textContent = fullEnrollImages.length;
+  if (elements.fullPreviewCount) elements.fullPreviewCount.textContent = fullEnrollImages.length;
+
+  fullEnrollImages.forEach((imgData, idx) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'preview-thumb-wrapper';
+
+    const thumb = document.createElement('img');
+    thumb.src = imgData;
+    thumb.className = 'preview-thumb';
+    thumb.title = `Photo #${idx + 1}`;
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn-remove-thumb';
+    removeBtn.innerHTML = '×';
+    removeBtn.title = 'Remove photo';
+    removeBtn.type = 'button';
+    removeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fullEnrollImages.splice(idx, 1);
+      renderFullPreviewThumbnails();
+    });
+
+    wrapper.appendChild(thumb);
+    wrapper.appendChild(removeBtn);
+    elements.fullEnrollPreviewGrid.appendChild(wrapper);
+  });
+}
+

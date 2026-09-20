@@ -33,9 +33,17 @@
       </div>
 
       <nav class="nav-menu">
-        <button class="nav-item active" data-tab="tab-identify" id="nav-btn-identify">
+        <button class="nav-item active" data-tab="tab-welcome" id="nav-btn-welcome">
+          <i class="ph ph-house"></i>
+          <span>Welcome Home</span>
+        </button>
+        <button class="nav-item" data-tab="tab-enroll" id="nav-btn-enroll">
+          <i class="ph ph-user-plus"></i>
+          <span>New Enrollment</span>
+        </button>
+        <button class="nav-item" data-tab="tab-identify" id="nav-btn-identify">
           <i class="ph ph-fingerprint"></i>
-          <span>Live Identifier</span>
+          <span>Live Identifier (Attendance)</span>
         </button>
         <button class="nav-item" data-tab="tab-gallery" id="nav-btn-gallery">
           <i class="ph ph-users-three"></i>
@@ -137,8 +145,205 @@
         </div>
       </header>
 
-      <!-- TAB 1: IDENTIFICATION & MATCHING -->
-      <section class="tab-panel active" id="tab-identify">
+      <!-- TAB 0: WELCOME PORTAL -->
+      <section class="tab-panel active" id="tab-welcome">
+        <div class="welcome-portal-wrapper">
+          
+          <!-- Hero Section -->
+          <div class="portal-hero">
+            <div class="hero-chip">
+              <span class="pulse-dot"></span> Production Biometrics & Attendance Engine
+            </div>
+            <h1 class="hero-title">Welcome to <span class="hero-brand">FaceID<span class="accent-dot">.</span>ai</span></h1>
+            <p class="hero-subtitle">
+              Deep-learning facial recognition powered by InsightFace & ArcFace 512-D embeddings.
+              Select an option below to register a new profile or verify identity and attendance.
+            </p>
+          </div>
+
+          <!-- Dual Choice Action Cards (Boxes) -->
+          <div class="portal-cards-grid">
+            
+            <!-- Box 1: New Enrollment -->
+            <div class="portal-action-card card-enroll" id="card-new-enroll">
+              <div class="card-glow-bg"></div>
+              <div class="card-top-tag">
+                <span class="portal-tag tag-primary">Step 1 • Registration</span>
+                <i class="ph ph-arrow-up-right card-arrow-icon"></i>
+              </div>
+              <div class="card-icon-container icon-enroll">
+                <i class="ph-fill ph-user-plus"></i>
+              </div>
+              <h2 class="card-heading">New Enrollment</h2>
+              <p class="card-description">
+                Register a new individual into the biometric database. Enter your name and capture or upload up to 5 face photos using your live camera or image files.
+              </p>
+              <div class="card-feature-list">
+                <div class="feature-item"><i class="ph ph-check"></i> Webcam live multi-angle capture</div>
+                <div class="feature-item"><i class="ph ph-check"></i> Automated RetinaFace 5-point alignment</div>
+                <div class="feature-item"><i class="ph ph-check"></i> Instant 512-D template persistence</div>
+              </div>
+              <button type="button" class="btn btn-primary portal-btn" id="btn-card-enroll">
+                <span>Start New Enrollment</span>
+                <i class="ph ph-arrow-right"></i>
+              </button>
+            </div>
+
+            <!-- Box 2: Already Enrolled / Attendance -->
+            <div class="portal-action-card card-verify" id="card-already-enrolled">
+              <div class="card-glow-bg"></div>
+              <div class="card-top-tag">
+                <span class="portal-tag tag-success">Step 2 • Verification & Attendance</span>
+                <i class="ph ph-arrow-up-right card-arrow-icon"></i>
+              </div>
+              <div class="card-icon-container icon-verify">
+                <i class="ph-fill ph-identification-card"></i>
+              </div>
+              <h2 class="card-heading">Already Enrolled</h2>
+              <p class="card-description">
+                Perform real-time facial verification and log attendance. Authenticate yourself using the live webcam or test against preloaded benchmark samples.
+              </p>
+              <div class="card-feature-list">
+                <div class="feature-item"><i class="ph ph-check"></i> Live webcam query analysis</div>
+                <div class="feature-item"><i class="ph ph-check"></i> Real-time cosine similarity matching</div>
+                <div class="feature-item"><i class="ph ph-check"></i> Automated attendance confirmation & log</div>
+              </div>
+              <button type="button" class="btn btn-primary portal-btn btn-verify" id="btn-card-verify">
+                <span>Mark Attendance / Identify</span>
+                <i class="ph ph-arrow-right"></i>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Bottom Metrics / Quick Overview Strip -->
+          <div class="portal-metrics-strip">
+            <div class="portal-metric-box">
+              <div class="metric-num" id="portal-enrolled-count">4</div>
+              <div class="metric-label">Enrolled Persons</div>
+            </div>
+            <div class="portal-metric-divider"></div>
+            <div class="portal-metric-box">
+              <div class="metric-num" id="portal-templates-count">8</div>
+              <div class="metric-label">Biometric Templates</div>
+            </div>
+            <div class="portal-metric-divider"></div>
+            <div class="portal-metric-box">
+              <div class="metric-num">0.40</div>
+              <div class="metric-label">Decision Threshold (τ)</div>
+            </div>
+            <div class="portal-metric-divider"></div>
+            <div class="portal-metric-box">
+              <div class="metric-num">100.0%</div>
+              <div class="metric-label">Top-1 Accuracy</div>
+            </div>
+            <div class="portal-metric-divider"></div>
+            <div class="portal-metric-links">
+              <button class="portal-quick-link" id="link-open-gallery" type="button">
+                <i class="ph ph-users-three"></i> View Gallery
+              </button>
+              <button class="portal-quick-link" id="link-open-benchmark" type="button">
+                <i class="ph ph-chart-polar"></i> View Plots
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB: DEDICATED FULL-PAGE ENROLLMENT -->
+      <section class="tab-panel" id="tab-enroll">
+        <div class="full-enroll-wrapper">
+          <div class="full-enroll-card panel-card">
+            <div class="card-header">
+              <div class="header-left">
+                <i class="ph ph-user-plus"></i>
+                <div>
+                  <h2>Register New Biometric Identity</h2>
+                  <p class="section-desc">Enter the individual's name and capture or upload up to 5 clear photos.</p>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-sm" id="btn-back-to-welcome" type="button">
+                <i class="ph ph-arrow-left"></i> Back to Welcome
+              </button>
+            </div>
+
+            <div class="enroll-form-body">
+              <!-- Name Input Row -->
+              <div class="form-group-custom">
+                <label for="full-enroll-name-input">
+                  <strong>Full Name / Identity Identifier <span class="req">*</span></strong>
+                </label>
+                <div class="input-with-icon">
+                  <i class="ph ph-user"></i>
+                  <input type="text" id="full-enroll-name-input" class="text-input" placeholder="e.g. John Doe, Sarah Connor" autocomplete="off" />
+                </div>
+                <small class="field-hint">This name will be saved in the database and displayed during identification and attendance logging.</small>
+              </div>
+
+              <!-- Mode Switcher -->
+              <div class="enroll-source-toggle">
+                <button type="button" class="mode-tab-btn active" id="btn-full-mode-camera">
+                  <i class="ph ph-camera"></i> Live Webcam Capture (Recommended)
+                </button>
+                <button type="button" class="mode-tab-btn" id="btn-full-mode-upload">
+                  <i class="ph ph-upload-simple"></i> Upload Image Files
+                </button>
+              </div>
+
+              <!-- Camera Section -->
+              <div class="full-enroll-camera-area" id="full-enroll-camera-section">
+                <div class="full-camera-box">
+                  <video id="full-enroll-video-feed" autoplay playsinline muted></video>
+                  <div class="camera-scanner-reticle"></div>
+                  <div class="camera-controls-overlay">
+                    <button type="button" class="btn btn-primary" id="btn-full-snap-photo">
+                      <i class="ph ph-aperture"></i> Snap Photo (<span id="full-snap-count">0</span>/5)
+                    </button>
+                  </div>
+                </div>
+                <canvas id="full-enroll-snap-canvas" style="display: none;"></canvas>
+                <p class="camera-hint">Position face within the oval reticle and snap 1 to 5 photos (try looking slightly left/right for better angles).</p>
+              </div>
+
+              <!-- Upload Section -->
+              <div class="full-enroll-upload-area hidden" id="full-enroll-upload-section">
+                <div class="modal-dropzone" id="full-enroll-dropzone">
+                  <i class="ph ph-cloud-arrow-up"></i>
+                  <h4>Click or Drag Photos Here</h4>
+                  <p>Upload 1 to 5 face photos (JPEG, PNG, WebP)</p>
+                  <input type="file" id="full-modal-file-input" accept="image/*" multiple style="display: none;" />
+                </div>
+              </div>
+
+              <!-- Preview Thumbnails Area -->
+              <div class="enroll-preview-container">
+                <div class="preview-header">
+                  <strong>Selected Photos (<span id="full-preview-count">0</span> / 5 max)</strong>
+                  <span class="text-muted text-sm">Photos with clear frontal face detection</span>
+                </div>
+                <div class="enroll-preview-grid" id="full-enroll-preview-grid">
+                  <!-- Dynamically populated thumbnails with remove buttons -->
+                </div>
+              </div>
+
+              <!-- Submission Actions -->
+              <div class="enroll-actions-bar">
+                <button type="button" class="btn btn-secondary" id="btn-full-cancel-enroll">
+                  Cancel
+                </button>
+                <button type="button" class="btn btn-primary" id="btn-full-submit-enroll">
+                  <i class="ph ph-check-circle"></i> Complete Enrollment
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 1: IDENTIFICATION & MATCHING (ATTENDANCE) -->
+      <section class="tab-panel" id="tab-identify">
         <div class="grid-layout-identifier">
           
           <!-- Left Column: Input, Controls & Canvas -->
@@ -245,6 +450,18 @@
             </div>
 
             <div class="results-content-area" id="results-container">
+              <!-- Attendance Alert Banner -->
+              <div class="attendance-alert-banner hidden" id="attendance-alert-banner">
+                <div class="alert-icon-wrap" id="attendance-alert-icon">
+                  <i class="ph-fill ph-check-circle"></i>
+                </div>
+                <div class="alert-content-wrap">
+                  <div class="alert-title" id="attendance-alert-title">Attendance Recorded Successfully</div>
+                  <div class="alert-details" id="attendance-alert-details">Identity verified against ArcFace template database.</div>
+                </div>
+                <div class="alert-time-wrap" id="attendance-alert-time"></div>
+              </div>
+
               <!-- Empty placeholder state -->
               <div class="empty-state" id="empty-results-state">
                 <div class="empty-icon">

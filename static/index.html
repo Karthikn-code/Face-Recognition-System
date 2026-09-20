@@ -86,6 +86,43 @@
           <p class="page-subtitle" id="page-subheading">Detect facial landmarks, extract ArcFace embeddings, and match against gallery with unknown rejection.</p>
         </div>
         <div class="header-actions">
+          <!-- Color Theme Picker -->
+          <div class="theme-picker-wrapper">
+            <button class="theme-toggle-btn" id="btn-theme-toggle" type="button" aria-haspopup="true" aria-expanded="false" title="Switch Color Theme">
+              <i class="ph ph-palette"></i>
+              <span id="active-theme-name">Obsidian</span>
+              <i class="ph ph-caret-down"></i>
+            </button>
+            <div class="theme-menu-dropdown hidden" id="theme-menu-dropdown">
+              <div class="theme-dropdown-header">Color Themes</div>
+              <button class="theme-menu-item active" data-theme="obsidian">
+                <span class="theme-preview-dot dot-obsidian"></span>
+                <span class="theme-name">Obsidian Indigo</span>
+                <i class="ph-bold ph-check check-icon"></i>
+              </button>
+              <button class="theme-menu-item" data-theme="emerald">
+                <span class="theme-preview-dot dot-emerald"></span>
+                <span class="theme-name">Emerald Matrix</span>
+                <i class="ph-bold ph-check check-icon"></i>
+              </button>
+              <button class="theme-menu-item" data-theme="amethyst">
+                <span class="theme-preview-dot dot-amethyst"></span>
+                <span class="theme-name">Royal Amethyst</span>
+                <i class="ph-bold ph-check check-icon"></i>
+              </button>
+              <button class="theme-menu-item" data-theme="cyber">
+                <span class="theme-preview-dot dot-cyber"></span>
+                <span class="theme-name">Cyber Nebula</span>
+                <i class="ph-bold ph-check check-icon"></i>
+              </button>
+              <button class="theme-menu-item" data-theme="light">
+                <span class="theme-preview-dot dot-light"></span>
+                <span class="theme-name">Executive Light</span>
+                <i class="ph-bold ph-check check-icon"></i>
+              </button>
+            </div>
+          </div>
+
           <div class="quick-stat">
             <i class="ph ph-shield-check"></i>
             <div>

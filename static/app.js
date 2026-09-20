@@ -24,6 +24,12 @@ const elements = {
   enrolledBadge: document.getElementById('enrolled-badge'),
   topThreshDisplay: document.getElementById('top-thresh-display'),
   
+  // Theme Switcher
+  btnThemeToggle: document.getElementById('btn-theme-toggle'),
+  themeDropdownMenu: document.getElementById('theme-menu-dropdown'),
+  activeThemeName: document.getElementById('active-theme-name'),
+  themeMenuItems: document.querySelectorAll('.theme-menu-item'),
+  
   // Identifier Elements
   dropzone: document.getElementById('image-dropzone'),
   canvasWrapper: document.getElementById('canvas-wrapper'),
@@ -91,6 +97,7 @@ let modalEnrollImages = [];
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
+  initThemeSwitcher();
   initNavigation();
   initDragAndDrop();
   initThresholdSlider();
@@ -102,6 +109,56 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadIdentities();
   await loadMetricsAndFailures();
 });
+
+const themeLabels = {
+  'obsidian': 'Obsidian',
+  'emerald': 'Emerald',
+  'amethyst': 'Amethyst',
+  'cyber': 'Cyber',
+  'light': 'Light'
+};
+
+function initThemeSwitcher() {
+  const savedTheme = localStorage.getItem('faceid-theme') || 'obsidian';
+  setTheme(savedTheme);
+
+  if (elements.btnThemeToggle) {
+    elements.btnThemeToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      elements.themeDropdownMenu.classList.toggle('hidden');
+    });
+  }
+
+  document.addEventListener('click', () => {
+    if (elements.themeDropdownMenu && !elements.themeDropdownMenu.classList.contains('hidden')) {
+      elements.themeDropdownMenu.classList.add('hidden');
+    }
+  });
+
+  elements.themeMenuItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const theme = item.getAttribute('data-theme');
+      setTheme(theme);
+      elements.themeDropdownMenu.classList.add('hidden');
+      showToast(`Color theme switched to ${themeLabels[theme] || theme}!`, 'info');
+    });
+  });
+}
+
+function setTheme(theme) {
+  document.body.setAttribute('data-theme', theme);
+  localStorage.setItem('faceid-theme', theme);
+
+  if (elements.activeThemeName) {
+    elements.activeThemeName.textContent = themeLabels[theme] || 'Obsidian';
+  }
+
+  elements.themeMenuItems.forEach(item => {
+    const isMatch = item.getAttribute('data-theme') === theme;
+    item.classList.toggle('active', isMatch);
+  });
+}
 
 function initNavigation() {
   elements.navItems.forEach(btn => {
@@ -389,6 +446,7 @@ function processSelectedFile(file) {
 async function identifyImageFromPath(imagePath, sampleName) {
   showLoading(`Analyzing '${sampleName}' with ArcFace...`);
   
+  const cleanPath = imagePath.replace(/\\/g, '/');
   // Also load image onto canvas for visual display
   const img = new Image();
   img.onload = async () => {
@@ -398,7 +456,7 @@ async function identifyImageFromPath(imagePath, sampleName) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          image_path: imagePath,
+          image_path: cleanPath,
           threshold: state.threshold
         })
       });
@@ -416,7 +474,11 @@ async function identifyImageFromPath(imagePath, sampleName) {
       showToast('Network error during identification.', 'error');
     }
   };
-  img.src = '/' + imagePath;
+  img.onerror = () => {
+    hideLoading();
+    showToast(`Could not load sample image for '${sampleName}'.`, 'error');
+  };
+  img.src = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath;
 }
 
 async function identifyImageBase64(base64Data) {

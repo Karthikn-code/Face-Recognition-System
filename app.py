@@ -141,6 +141,21 @@ class FaceRecognitionHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(f.read())
                 return
 
+        # Serve dataset samples (/data/...)
+        norm_path = path.replace("\\", "/")
+        if norm_path.startswith("/data/"):
+            rel_path = norm_path[len("/data/"):]
+            file_path = config.DATA_DIR / Path(rel_path)
+            if file_path.exists() and file_path.is_file():
+                mime, _ = mimetypes.guess_type(str(file_path))
+                self.send_response(200)
+                self.send_header("Content-Type", mime or "image/jpeg")
+                self.send_header("Content-Length", str(file_path.stat().st_size))
+                self.end_headers()
+                with open(file_path, "rb") as f:
+                    self.wfile.write(f.read())
+                return
+
         # API: Status & Configuration
         if path == "/api/status":
             DATABASE.load()
@@ -181,10 +196,11 @@ class FaceRecognitionHandler(http.server.SimpleHTTPRequestHandler):
                         p = item["person"]
                         if p not in known_added and len(known_added) < 4:
                             known_added.add(p)
+                            clean_p = str(item["path"]).replace("\\", "/")
                             samples.append({
                                 "category": "Known Identity (Enrolled/Test)",
                                 "person": p,
-                                "path": item["path"]
+                                "path": clean_p
                             })
 
                     # Add unknown samples
@@ -193,10 +209,11 @@ class FaceRecognitionHandler(http.server.SimpleHTTPRequestHandler):
                         p = item["person"]
                         if p not in unknown_added and len(unknown_added) < 4:
                             unknown_added.add(p)
+                            clean_p = str(item["path"]).replace("\\", "/")
                             samples.append({
                                 "category": "Unknown Intruder (Unenrolled)",
                                 "person": p,
-                                "path": item["path"]
+                                "path": clean_p
                             })
                 except Exception:
                     pass

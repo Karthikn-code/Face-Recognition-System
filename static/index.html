@@ -373,11 +373,39 @@
         
         <div class="form-group">
           <label>Enrollment Photos (Select 1 to 5 images)</label>
-          <div class="modal-dropzone" id="modal-enroll-dropzone">
-            <i class="ph ph-images"></i>
-            <span>Click or drag photos here to upload</span>
-            <input type="file" id="modal-file-input" accept="image/*" multiple style="display: none;">
+          <div class="enroll-mode-selector">
+            <button type="button" class="mode-btn active" id="btn-mode-upload">
+              <i class="ph ph-upload-simple"></i> Upload Photos
+            </button>
+            <button type="button" class="mode-btn" id="btn-mode-camera">
+              <i class="ph ph-camera"></i> Live Camera
+            </button>
           </div>
+
+          <!-- Mode 1: File Upload (Existing) -->
+          <div id="enroll-upload-section">
+            <div class="modal-dropzone" id="modal-enroll-dropzone">
+              <i class="ph ph-images"></i>
+              <span>Click or drag photos here to upload</span>
+              <input type="file" id="modal-file-input" accept="image/*" multiple style="display: none;">
+            </div>
+          </div>
+
+          <!-- Mode 2: Live Camera Capture (New) -->
+          <div id="enroll-camera-section" class="hidden">
+            <div class="camera-viewport-box">
+              <video id="enroll-video-feed" autoplay playsinline muted></video>
+              <canvas id="enroll-snap-canvas" style="display: none;"></canvas>
+              <div class="camera-scanner-reticle"></div>
+              <div class="camera-controls-overlay">
+                <button type="button" class="btn btn-primary btn-sm" id="btn-snap-photo">
+                  <i class="ph ph-aperture"></i> Snap Photo (<span id="snap-count">0</span>/5)
+                </button>
+              </div>
+            </div>
+            <div class="camera-hint">Tip: Snap 1 to 5 photos from slightly different angles or expressions for optimal recognition.</div>
+          </div>
+
           <div class="enroll-preview-grid" id="enroll-preview-grid"></div>
         </div>
       </div>

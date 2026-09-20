@@ -63,6 +63,16 @@ const elements = {
   modalFileInput: document.getElementById('modal-file-input'),
   enrollPreviewGrid: document.getElementById('enroll-preview-grid'),
   
+  // Camera Enrollment Elements
+  btnModeUpload: document.getElementById('btn-mode-upload'),
+  btnModeCamera: document.getElementById('btn-mode-camera'),
+  enrollUploadSection: document.getElementById('enroll-upload-section'),
+  enrollCameraSection: document.getElementById('enroll-camera-section'),
+  enrollVideoFeed: document.getElementById('enroll-video-feed'),
+  enrollSnapCanvas: document.getElementById('enroll-snap-canvas'),
+  btnSnapPhoto: document.getElementById('btn-snap-photo'),
+  snapCount: document.getElementById('snap-count'),
+  
   // Failures Elements
   failuresGrid: document.getElementById('failures-grid'),
   
@@ -706,35 +716,153 @@ function renderResultsCards(faces) {
    Enrollment Modal Logic
    ========================================================================== */
 
+let cameraStream = null;
+
 function initEnrollmentModal() {
   const openModal = () => {
     modalEnrollImages = [];
-    elements.enrollPreviewGrid.innerHTML = '';
+    renderPreviewThumbnails();
     elements.enrollNameInput.value = '';
+    setEnrollMode('upload');
     elements.enrollModal.classList.remove('hidden');
   };
   
   const closeModal = () => {
+    stopCameraStream();
+    modalEnrollImages = [];
+    renderPreviewThumbnails();
     elements.enrollModal.classList.add('hidden');
   };
+
+  function setEnrollMode(mode) {
+    if (mode === 'camera') {
+      elements.btnModeCamera.classList.add('active');
+      elements.btnModeUpload.classList.remove('active');
+      elements.enrollUploadSection.classList.add('hidden');
+      elements.enrollCameraSection.classList.remove('hidden');
+      startCameraStream();
+    } else {
+      elements.btnModeUpload.classList.add('active');
+      elements.btnModeCamera.classList.remove('active');
+      elements.enrollCameraSection.classList.add('hidden');
+      elements.enrollUploadSection.classList.remove('hidden');
+      stopCameraStream();
+    }
+  }
+
+  async function startCameraStream() {
+    try {
+      if (cameraStream) stopCameraStream();
+      cameraStream = await navigator.mediaDevices.getUserMedia({
+        video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' }
+      });
+      if (elements.enrollVideoFeed) {
+        elements.enrollVideoFeed.srcObject = cameraStream;
+      }
+    } catch (err) {
+      console.error('Camera stream error:', err);
+      showToast('Camera access denied or unavailable: ' + (err.message || err.name), 'error');
+      setEnrollMode('upload');
+    }
+  }
+
+  function stopCameraStream() {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream = null;
+    }
+    if (elements.enrollVideoFeed) {
+      elements.enrollVideoFeed.srcObject = null;
+    }
+  }
+
+  function renderPreviewThumbnails() {
+    elements.enrollPreviewGrid.innerHTML = '';
+    if (elements.snapCount) {
+      elements.snapCount.textContent = modalEnrollImages.length;
+    }
+    modalEnrollImages.forEach((imgData, idx) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'preview-thumb-wrapper';
+      
+      const thumb = document.createElement('img');
+      thumb.src = imgData;
+      thumb.className = 'preview-thumb';
+      thumb.title = `Photo #${idx + 1}`;
+      
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'btn-remove-thumb';
+      removeBtn.innerHTML = '×';
+      removeBtn.title = 'Remove photo';
+      removeBtn.type = 'button';
+      removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modalEnrollImages.splice(idx, 1);
+        renderPreviewThumbnails();
+      });
+      
+      wrapper.appendChild(thumb);
+      wrapper.appendChild(removeBtn);
+      elements.enrollPreviewGrid.appendChild(wrapper);
+    });
+  }
   
   elements.btnOpenEnrollModal.addEventListener('click', openModal);
   elements.btnGalleryEnroll.addEventListener('click', openModal);
   elements.btnCloseEnroll.addEventListener('click', closeModal);
   elements.btnCancelEnroll.addEventListener('click', closeModal);
+
+  // Mode switcher listeners
+  if (elements.btnModeUpload) {
+    elements.btnModeUpload.addEventListener('click', () => setEnrollMode('upload'));
+  }
+  if (elements.btnModeCamera) {
+    elements.btnModeCamera.addEventListener('click', () => setEnrollMode('camera'));
+  }
+
+  // Camera snap photo listener
+  if (elements.btnSnapPhoto) {
+    elements.btnSnapPhoto.addEventListener('click', () => {
+      if (modalEnrollImages.length >= 5) {
+        showToast('Maximum 5 enrollment photos allowed.', 'error');
+        return;
+      }
+      const video = elements.enrollVideoFeed;
+      if (!video || !video.videoWidth) {
+        showToast('Waiting for live camera stream...', 'error');
+        return;
+      }
+      const canvas = elements.enrollSnapCanvas;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      // Mirror image for natural appearance
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+      modalEnrollImages.push(dataUrl);
+      renderPreviewThumbnails();
+      showToast(`Captured enrollment photo (${modalEnrollImages.length}/5)!`, 'success');
+    });
+  }
   
   elements.modalEnrollDropzone.addEventListener('click', () => elements.modalFileInput.click());
   
   elements.modalFileInput.addEventListener('change', () => {
     const files = Array.from(elements.modalFileInput.files);
-    files.slice(0, 5).forEach(file => {
+    const availableSlots = 5 - modalEnrollImages.length;
+    if (availableSlots <= 0) {
+      showToast('Maximum 5 enrollment photos allowed.', 'error');
+      return;
+    }
+    files.slice(0, availableSlots).forEach(file => {
       const reader = new FileReader();
       reader.onload = (e) => {
         modalEnrollImages.push(e.target.result);
-        const thumb = document.createElement('img');
-        thumb.src = e.target.result;
-        thumb.className = 'preview-thumb';
-        elements.enrollPreviewGrid.appendChild(thumb);
+        renderPreviewThumbnails();
       };
       reader.readAsDataURL(file);
     });
@@ -747,7 +875,7 @@ function initEnrollmentModal() {
       return;
     }
     if (modalEnrollImages.length === 0) {
-      showToast('Please select at least 1 photo.', 'error');
+      showToast('Please upload or snap at least 1 photo.', 'error');
       return;
     }
     
@@ -765,7 +893,7 @@ function initEnrollmentModal() {
       });
       const data = await res.json();
       if (data.success) {
-        showToast(`Successfully enrolled '${data.name}' with ${data.added_faces} faces!`, 'success');
+        showToast(`Successfully enrolled '${data.name}' with ${data.added_faces} face templates!`, 'success');
         await loadIdentities();
         await loadSystemStatus();
       } else {

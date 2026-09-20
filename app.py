@@ -365,20 +365,29 @@ class FaceRecognitionHandler(http.server.SimpleHTTPRequestHandler):
             person_dir.mkdir(parents=True, exist_ok=True)
             saved_paths = []
 
-            for idx, b64_str in enumerate(images_b64, start=1):
+            existing_count = len(list(person_dir.glob("*.jpg")))
+            for idx, b64_str in enumerate(images_b64, start=existing_count + 1):
                 try:
                     img = decode_base64_image(b64_str)
                     out_p = person_dir / f"enrolled_{idx:03d}.jpg"
                     cv2.imwrite(str(out_p), img)
                     saved_paths.append(out_p)
                 except Exception as e:
-                    pass
+                    print(f"[!] Error decoding base64 image {idx}: {e}")
 
             if not saved_paths:
                 self._send_error_json("Failed to decode and save enrollment images.")
                 return
 
             added, skipped = DATABASE.enroll(name, saved_paths, EMBEDDER, verbose=True)
+            if added == 0:
+                self._send_error_json(
+                    f"No face detected in the {len(saved_paths)} image(s). Please provide clear, front-facing, well-lit photos.",
+                    status=400
+                )
+                return
+
+            print(f"[+] Successfully enrolled '{name}': {added} face(s) added to database.")
             self._send_json({
                 "success": True,
                 "name": name,

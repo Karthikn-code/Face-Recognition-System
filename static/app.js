@@ -973,8 +973,13 @@ function initEnrollmentModal() {
       return;
     }
     
+    // Copy images so they are not wiped if modal resets
+    const imagesToEnroll = [...modalEnrollImages];
+    const originalBtnHtml = elements.btnSubmitEnroll.innerHTML;
+    elements.btnSubmitEnroll.disabled = true;
+    elements.btnSubmitEnroll.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Enrolling...';
+
     showToast('Extracting ArcFace embeddings for enrollment...', 'info');
-    closeModal();
     
     try {
       const res = await fetch('/api/enroll', {
@@ -982,19 +987,23 @@ function initEnrollmentModal() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: name,
-          images: modalEnrollImages
+          images: imagesToEnroll
         })
       });
       const data = await res.json();
       if (data.success) {
         showToast(`Successfully enrolled '${data.name}' with ${data.added_faces} face templates!`, 'success');
+        closeModal();
         await loadIdentities();
         await loadSystemStatus();
       } else {
         showToast(data.error || 'Enrollment failed.', 'error');
       }
     } catch (err) {
-      showToast('Network error during enrollment.', 'error');
+      showToast('Network error during enrollment: ' + (err.message || err), 'error');
+    } finally {
+      elements.btnSubmitEnroll.disabled = false;
+      elements.btnSubmitEnroll.innerHTML = originalBtnHtml;
     }
   });
 }

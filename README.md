@@ -47,6 +47,41 @@ Query Image
 Identified: Person P   Rejected: UNKNOWN
 ```
 
+### Repository Structure
+```
+Face-Recognition-System/
+├── app.py                     # Native HTTP Web Application & REST API Server (port 8000)
+├── main.py                    # Production CLI for enrollment, identification, & gallery CRUD
+├── config.py                  # Global hyperparameters, paths, and tuned decision threshold
+├── pytest.ini                 # Pytest configuration (pythonpath = .)
+├── requirements.txt           # Minimal zero-cost CPU dependencies
+├── src/
+│   ├── database.py            # FaceDatabase persistent binary storage & in-memory cache
+│   ├── embedder.py            # Unified RetinaFace + ArcFace feature extraction interface
+│   ├── matcher.py             # Open-set Cosine Similarity & thresholding engine
+│   ├── system.py              # End-to-end FaceRecognitionSystem facade
+│   ├── evaluate.py            # Zero-leakage evaluation suite & metric curve generators
+│   └── utils.py               # Image I/O, base64 conversion & drawing utilities
+├── static/                    # Glassmorphic Web Dashboard (Zero Frameworks, Pure JS/CSS)
+│   ├── index.html             # Welcome Portal, Enrollment Studio, & Analysis UI
+│   ├── style.css              # Glassmorphic theme system & responsive layout styles
+│   └── app.js                 # HTML5 webcam streaming, dynamic threshold HUD, & API client
+├── tests/                     # Automated unit test suite (12 passed tests)
+│   ├── test_database.py       # Database CRUD, persistence & matrix extraction tests
+│   ├── test_embedder.py       # Detection, alignment & embedding normalization tests
+│   ├── test_matcher.py        # Vector similarity & threshold decision logic tests
+│   └── test_system.py         # Full end-to-end enroll/identify roundtrip tests
+├── scripts/
+│   └── prepare_dataset.py     # LFW automated downloader & split generator (zero leakage)
+├── results/                   # Benchmark artifacts
+│   ├── metrics.json           # Empirical evaluation metrics on test split
+│   ├── plots/                 # High-resolution benchmark figures (ROC, DET, Score Dist)
+│   └── failures/              # Boundary stress testing failure case visuals
+└── data/                      # Local data directory (auto-created)
+    ├── embeddings_db.pkl      # Pickled biometric database
+    └── lfw/                   # LFW identity image partitions
+```
+
 ---
 
 ## 2. Quickstart & Reproduction Guide
@@ -78,9 +113,12 @@ Downloads the standard public LFW dataset (~200MB), formats images into standard
 python scripts/prepare_dataset.py
 ```
 
-### Step 4: Run Unit & Integration Tests
+### Step 4: Run Automated Unit Tests
+With `pytest.ini` preconfigured, all 12 unit and integration tests across database, embedder, matcher, and system layers execute with a single command:
 ```bash
-pytest tests/ -v
+pytest
+# Or explicitly:
+python -m pytest tests/ -v
 ```
 
 ### Step 5: Execute Full System Evaluation Pipeline
@@ -124,7 +162,7 @@ python main.py remove --name "Alice"
 
 ## 4. Interactive Web Application & Attendance Portal
 
-The project includes an interactive web application and REST API built with Python's native `http.server`:
+The project includes a full-stack, glassmorphic web dashboard powered by Python's native `http.server`:
 
 ```bash
 # Launch the web application server (port 8000)
@@ -133,21 +171,69 @@ python app.py --port 8000
 Open **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** in your browser.
 
 ### Key Features:
-- **Welcome Portal & Dual Action Cards**:
-  - **New Enrollment**: Dedicated full-page view to register identities with full name and up to 5 photos via Live Webcam or file upload.
-  - **Already Enrolled (Attendance System)**: Real-time biometric verification against enrolled templates, displaying automated attendance confirmation banners (`✅ Attendance Verified: [Name] | Score: [XX.X%] | Timestamp: [Time]`).
-- **Live Dual Webcam Streaming**:
-  - HTML5 `getUserMedia` streaming with reticle alignment, horizontal mirror transforms, and instantaneous ArcFace embedding extraction.
-- **Dynamic Threshold Slider**:
+- **Welcome Portal ("Welcome to FaceID.ai")**:
+  - Clean landing view with real-time operational status metrics (model name, enrolled people, active template count).
+  - **Card 1: New Enrollment**: Launches a dedicated full-page enrollment studio to register identities with full name and up to 5 photos via Live Webcam capture or file upload.
+  - **Card 2: Already Enrolled (Attendance System)**: Switches to the biometric verification workspace with real-time camera capture and automated attendance confirmation alerts (`✅ Attendance Verified: [Name] | Score: [XX.X%] | Timestamp: [Time]`).
+- **Live HTML5 Camera Streaming**:
+  - High-framerate `getUserMedia` streaming with reticle alignment overlay and instantaneous base64 frame capture.
+- **Client-Side Dynamic Threshold Slider**:
   - Adjust decision threshold $\tau \in [0.10, 0.90]$ dynamically with instant client-side canvas re-rendering (zero server roundtrip lag).
-- **Gallery & Failure Inspector**:
-  - Inspect stored templates, delete records, review zero-leakage benchmark charts, and audit empirical boundary stress failure artifacts.
+- **Interactive Gallery & Failure Inspector**:
+  - Audit registered gallery identities, preview stored thumbnails, delete identities, review zero-leakage benchmark charts, and inspect empirical boundary stress failure artifacts.
 - **5 Curated Color Themes**:
   - Obsidian Indigo, Emerald Matrix, Royal Amethyst, Cyber Nebula, and Executive Light with persistent `localStorage` theme memory.
 
+### REST API Reference
+| Endpoint | Method | Description | Payload / Response |
+| :--- | :--- | :--- | :--- |
+| `/api/status` | `GET` | System health, active model, device, and gallery counts | `{ "status": "ok", "identities_count": 40, "total_templates": 120, ... }` |
+| `/api/identities` | `GET` | List all enrolled identities and metadata | `[ { "name": "Alice", "num_images": 3, "sources": [...] }, ... ]` |
+| `/api/enroll` | `POST` | Enroll a new person with up to 5 base64 images | Body: `{ "name": "Alice", "images": ["data:image/jpeg;base64,..."] }` |
+| `/api/identify` | `POST` | Perform biometric match on query image | Body: `{ "image": "...", "threshold": 0.34 }`<br>Returns match name, similarity, accept/reject decision, and bounding boxes |
+| `/api/identities` | `DELETE` | Remove an enrolled identity from database | Body: `{ "name": "Alice" }` |
+| `/api/plots` | `GET` | Metadata and paths for evaluation figures | Returns list of available evaluation chart URLs |
+| `/api/failures` | `GET` | Empirical boundary failure case breakdown | Returns categorized false accepts, false rejects, and no-face artifacts |
+
 ---
 
-## 5. Model Architecture & Engineering Decisions
+## 5. Biometric Database & Storage Schema
+
+Persistent identity storage is managed by [`FaceDatabase`](file:///d:/Face_Recognition/src/database.py) located in `src/database.py`:
+
+### Storage Architecture
+- **File Location**: `data/embeddings_db.pkl` (binary serialized dictionary via Python's standard `pickle` module).
+- **In-Memory Cache**: Maintained in `self.records` for fast $\mathcal{O}(1)$ dictionary access during live 1:N biometric search.
+- **Disk Synchronization**: Atomic file writes occur automatically whenever an identity is enrolled, updated, or removed.
+
+### Database Record Structure
+```python
+{
+    "Person_Name": {
+        "embeddings": [
+            np.ndarray(shape=(512,), dtype=np.float32),  # L2-normalized ArcFace unit vector
+            np.ndarray(shape=(512,), dtype=np.float32),  # Up to K enrollment photos (e.g. 1 to 5)
+            ...
+        ],
+        "sources": [
+            "data/lfw/Alice/0001.jpg",                   # Filepath or "webcam_capture_1.jpg"
+            ...
+        ]
+    },
+    ...
+}
+```
+
+### Core Database Operations
+- `enroll(name, image_paths, embedder)`: Extracts the largest detected face from each image, normalizes the embedding, appends to the identity's template list, and saves to disk.
+- `get_all_embeddings()`: Returns a dictionary mapping each `person_name -> np.ndarray` of shape $(K_p, 512)$, enabling vectorized matrix multiplication during Cosine Similarity computation.
+- `remove(name)`: Deletes an identity record and updates the persistent binary file.
+- `list_people()`: Returns high-level metadata (names, template counts, and source references) for UI gallery rendering.
+- `clear()`: Wipes all records and deletes the database file on disk.
+
+---
+
+## 6. Model Architecture & Engineering Decisions
 
 ### Primary Backend: InsightFace (`buffalo_l`)
 - **Detector**: RetinaFace / SCRFD with ResNet backbone on CPU using ONNXRuntime.
@@ -164,7 +250,7 @@ Open **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** in your browser.
 
 ---
 
-## 6. Similarity Matching & Threshold Selection
+## 7. Similarity Matching & Threshold Selection
 
 ### Why Cosine Similarity & $L_2$ Normalization?
 All raw feature embeddings $\mathbf{v} \in \mathbb{R}^{512}$ are explicitly $L_2$-normalized to unit length:
@@ -191,7 +277,7 @@ This provides:
 
 ---
 
-## 7. Real Benchmark Results (Zero Data Leakage)
+## 8. Real Benchmark Results (Zero Data Leakage)
 
 Evaluated strictly on the held-out test split once at the chosen threshold $\tau = 0.34$. Every metric below was generated by running `src/evaluate.py`:
 
@@ -218,7 +304,7 @@ Evaluated strictly on the held-out test split once at the chosen threshold $\tau
 
 ---
 
-## 8. Failure Case Analysis & Boundary Stress Testing
+## 9. Failure Case Analysis & Boundary Stress Testing
 
 ### Why 100% Accuracy on the Baseline Test Split?
 In this 40-identity LFW benchmark, genuine pairs cluster between **$0.55$ and $0.85$**, while impostor cross-similarities remain below **$0.18$**. At $\tau = 0.34$, a large angular margin ($\sim 0.37$) separates the two distributions.
@@ -242,7 +328,7 @@ Similarity Scale:
 
 ---
 
-## 9. Honest Limitations & Production Caveats
+## 10. Honest Limitations & Production Caveats
 
 1. **LFW Dataset Bias**: LFW consists of celebrity and public figure photos taken under press conditions. Real-world surveillance, CCTV, and mobile front cameras face severe motion blur, low sensor resolution, fisheye distortion, and extreme illumination variance.
 2. **Gallery Scaling (1:N Open-Set Growth)**:
@@ -253,7 +339,7 @@ Similarity Scale:
 
 ---
 
-## 10. Future Production Improvements
+## 11. Future Production Improvements
 
 1. **Liveness & Presentation Attack Detection (PAD)**:
    - Integrate an active/passive anti-spoofing network (e.g. MiniFASNet or texture Fourier analysis) to reject non-live biometric presentations.
@@ -268,7 +354,7 @@ Similarity Scale:
 
 ---
 
-## 11. Open-Source Citations & Compliance
+## 12. Open-Source Citations & Compliance
 
 All software, models, and datasets used in this project are 100% free and open-source:
 - **LFW Dataset**: G. B. Huang, M. Ramesh, T. Berg, and E. Learned-Miller. *Labeled Faces in the Wild: A Database for Studying Face Recognition in Unconstrained Environments*. University of Massachusetts, Amherst, Tech. Rep. 07-49, 2007.

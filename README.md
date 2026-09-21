@@ -53,6 +53,7 @@ Face-Recognition-System/
 ├── app.py                     # Native HTTP Web Application & REST API Server (port 8000)
 ├── main.py                    # Production CLI for enrollment, identification, & gallery CRUD
 ├── config.py                  # Global hyperparameters, paths, and tuned decision threshold
+├── Face_Recognition_System_Report.pdf # Publication-grade executive & technical PDF report
 ├── pytest.ini                 # Pytest configuration (pythonpath = .)
 ├── requirements.txt           # Minimal zero-cost CPU dependencies
 ├── src/

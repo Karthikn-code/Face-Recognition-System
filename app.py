@@ -79,6 +79,14 @@ class FaceRecognitionHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
+    def do_HEAD(self):
+        """Handle HTTP HEAD requests."""
+        if self.path == "/favicon.ico":
+            self.send_response(204)
+            self.end_headers()
+            return
+        super().do_HEAD()
+
     def do_GET(self):
         """Handle HTTP GET requests."""
         parsed_url = urllib.parse.urlparse(self.path)
@@ -98,6 +106,12 @@ class FaceRecognitionHandler(http.server.SimpleHTTPRequestHandler):
             else:
                 self.send_error(404, "index.html not found")
                 return
+
+        # Favicon handler
+        if path == "/favicon.ico":
+            self.send_response(204)
+            self.end_headers()
+            return
 
         # Serve static assets (/static/...)
         if path.startswith("/static/"):

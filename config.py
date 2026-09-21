@@ -31,9 +31,8 @@ MIN_FACE_SIZE = 30       # Minimum width/height in pixels for a valid face bbox
 EMBEDDING_DIM = 512      # Dimensionality of L2-normalized ArcFace/FaceNet embeddings
 
 # Matcher & Decision Parameters
-# Threshold is tuned programmatically on the validation split in src/evaluate.py
-# 0.40 is a reasonable default starting point for cosine similarity
-MATCH_THRESHOLD = 0.40
+# Calibrated optimal operating threshold tuned programmatically on the validation split
+MATCH_THRESHOLD = 0.34
 MATCH_MODE = "max_similarity"  # Options: "max_similarity" or "mean_prototype"
 
 # Fallback Backends

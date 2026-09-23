@@ -444,9 +444,9 @@ if __name__ == "__main__":
 
     local_ip = get_local_ip()
     print("=" * 64)
-    print("  🚀 FaceID.ai Biometric Microservice is Live!")
-    print(f"  💻 On this PC:      http://127.0.0.1:8000/")
-    print(f"  📱 On your Mobile:  http://{local_ip}:8000/ (Same Wi-Fi)")
-    print(f"  📖 Swagger Docs:    http://127.0.0.1:8000/docs")
+    print("  [*] FaceID.ai Biometric Microservice is Live!")
+    print(f"  [-] Local PC:       http://127.0.0.1:8000/")
+    print(f"  [-] Local Network:  http://{local_ip}:8000/")
+    print(f"  [-] Swagger Docs:   http://127.0.0.1:8000/docs")
     print("=" * 64)
     uvicorn.run("fastapi_app:app", host="0.0.0.0", port=8000, reload=False)

@@ -95,37 +95,23 @@
         </div>
         <div class="header-actions">
           <!-- Color Theme Picker -->
+          <!-- Dark / Light Theme Toggle -->
           <div class="theme-picker-wrapper">
-            <button class="theme-toggle-btn" id="btn-theme-toggle" type="button" aria-haspopup="true" aria-expanded="false" title="Switch Color Theme">
-              <i class="ph ph-palette"></i>
-              <span id="active-theme-name">Obsidian</span>
+            <button class="theme-toggle-btn" id="btn-theme-toggle" type="button" aria-haspopup="true" aria-expanded="false" title="Switch Theme (Dark / Light)">
+              <i class="ph ph-moon" id="theme-icon"></i>
+              <span id="active-theme-name">Dark</span>
               <i class="ph ph-caret-down"></i>
             </button>
             <div class="theme-menu-dropdown hidden" id="theme-menu-dropdown">
-              <div class="theme-dropdown-header">Color Themes</div>
-              <button class="theme-menu-item active" data-theme="obsidian">
-                <span class="theme-preview-dot dot-obsidian"></span>
-                <span class="theme-name">Obsidian Indigo</span>
-                <i class="ph-bold ph-check check-icon"></i>
-              </button>
-              <button class="theme-menu-item" data-theme="emerald">
-                <span class="theme-preview-dot dot-emerald"></span>
-                <span class="theme-name">Emerald Matrix</span>
-                <i class="ph-bold ph-check check-icon"></i>
-              </button>
-              <button class="theme-menu-item" data-theme="amethyst">
-                <span class="theme-preview-dot dot-amethyst"></span>
-                <span class="theme-name">Royal Amethyst</span>
-                <i class="ph-bold ph-check check-icon"></i>
-              </button>
-              <button class="theme-menu-item" data-theme="cyber">
-                <span class="theme-preview-dot dot-cyber"></span>
-                <span class="theme-name">Cyber Nebula</span>
+              <div class="theme-dropdown-header">Appearance</div>
+              <button class="theme-menu-item active" data-theme="dark">
+                <i class="ph-bold ph-moon" style="font-size: 15px; color: #818CF8;"></i>
+                <span class="theme-name">Dark Mode</span>
                 <i class="ph-bold ph-check check-icon"></i>
               </button>
               <button class="theme-menu-item" data-theme="light">
-                <span class="theme-preview-dot dot-light"></span>
-                <span class="theme-name">Executive Light</span>
+                <i class="ph-bold ph-sun" style="font-size: 15px; color: #F59E0B;"></i>
+                <span class="theme-name">Light Mode</span>
                 <i class="ph-bold ph-check check-icon"></i>
               </button>
             </div>
@@ -135,7 +121,7 @@
             <i class="ph ph-shield-check"></i>
             <div>
               <div class="stat-label">Operating Threshold (τ)</div>
-              <div class="stat-val" id="top-thresh-display">0.34</div>
+              <div class="stat-val" id="top-thresh-display">0.60</div>
             </div>
           </div>
           <button class="btn btn-primary" id="btn-open-enroll-modal">
@@ -229,7 +215,7 @@
             </div>
             <div class="portal-metric-divider"></div>
             <div class="portal-metric-box">
-              <div class="metric-num">0.40</div>
+              <div class="metric-num">0.60</div>
               <div class="metric-label">Decision Threshold (τ)</div>
             </div>
             <div class="portal-metric-divider"></div>
@@ -302,6 +288,7 @@
                     </button>
                   </div>
                 </div>
+                <input type="file" id="mobile-enroll-camera-input" accept="image/*" capture="user" style="display: none;" />
                 <canvas id="full-enroll-snap-canvas" style="display: none;"></canvas>
                 <p class="camera-hint">Position face within the oval reticle and snap 1 to 5 photos (try looking slightly left/right for better angles).</p>
               </div>
@@ -373,9 +360,10 @@
                     <i class="ph ph-folder-open"></i> Browse Files
                   </button>
                   <button class="btn btn-secondary btn-sm" id="btn-open-query-camera" type="button">
-                    <i class="ph ph-camera"></i> Live Camera
+                    <i class="ph ph-camera"></i> Live Camera / Selfie
                   </button>
                   <input type="file" id="file-input" accept="image/*" style="display: none;">
+                  <input type="file" id="mobile-camera-input" accept="image/*" capture="user" style="display: none;">
                 </div>
               </div>
 
@@ -415,13 +403,13 @@
                   <span class="info-tag" title="Higher = Strict security; Lower = Convenience">Tune Rejection</span>
                 </div>
                 <div class="threshold-value-display">
-                  <span id="slider-threshold-val">0.34</span>
+                  <span id="slider-threshold-val">0.60</span>
                 </div>
               </div>
-              <input type="range" id="threshold-slider" min="0.10" max="0.90" step="0.01" value="0.34">
+              <input type="range" id="threshold-slider" min="0.10" max="0.90" step="0.01" value="0.60">
               <div class="threshold-ticks">
                 <span>0.10 (Lax)</span>
-                <span class="opt-mark">Optimal τ: 0.34</span>
+                <span class="opt-mark">Production τ: 0.60</span>
                 <span>0.90 (Strict)</span>
               </div>
             </div>

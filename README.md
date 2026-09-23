@@ -163,10 +163,16 @@ python main.py remove --name "Alice"
 
 ## 4. Interactive Web Application & Attendance Portal
 
-The project includes a full-stack, glassmorphic web dashboard powered by Python's native `http.server`:
+The project provides two interchangeable backend servers:
+1. **Production FastAPI Service (`fastapi_app.py`)**: Asynchronous, non-blocking threadpool inference, strict Pydantic validation, and interactive Swagger docs at `/docs`.
+2. **Zero-Dependency Native Server (`app.py`)**: Minimalist implementation using Python's standard `http.server`.
 
 ```bash
-# Launch the web application server (port 8000)
+# Launch High-Performance FastAPI Server (Recommended for Production & Docs)
+python fastapi_app.py
+# Interactive OpenAPI Swagger Docs: http://127.0.0.1:8000/docs
+
+# OR Launch Zero-Dependency Server
 python app.py --port 8000
 ```
 Open **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)** in your browser.

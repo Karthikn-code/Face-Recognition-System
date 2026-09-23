@@ -5,7 +5,7 @@
 // Application State
 const state = {
   activeTab: 'tab-welcome',
-  threshold: 0.34,
+  threshold: 0.60,
   currentImage: null, // HTMLImageElement
   lastIdentifyResponse: null,
   enrolledIdentities: [],
@@ -176,15 +176,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 const themeLabels = {
-  'obsidian': 'Obsidian',
-  'emerald': 'Emerald',
-  'amethyst': 'Amethyst',
-  'cyber': 'Cyber',
+  'dark': 'Dark',
+  'obsidian': 'Dark',
   'light': 'Light'
 };
 
 function initThemeSwitcher() {
-  const savedTheme = localStorage.getItem('faceid-theme') || 'obsidian';
+  let savedTheme = localStorage.getItem('faceid-theme') || 'dark';
+  // Normalize legacy themes to dark/light
+  if (savedTheme !== 'light') {
+    savedTheme = 'dark';
+  }
   setTheme(savedTheme);
 
   if (elements.btnThemeToggle) {
@@ -200,27 +202,40 @@ function initThemeSwitcher() {
     }
   });
 
-  elements.themeMenuItems.forEach(item => {
+  // Re-query theme menu items in case of DOM updates
+  const items = document.querySelectorAll('.theme-menu-item');
+  items.forEach(item => {
     item.addEventListener('click', (e) => {
       e.stopPropagation();
-      const theme = item.getAttribute('data-theme');
+      const theme = item.getAttribute('data-theme') || 'dark';
       setTheme(theme);
-      elements.themeDropdownMenu.classList.add('hidden');
-      showToast(`Color theme switched to ${themeLabels[theme] || theme}!`, 'info');
+      if (elements.themeDropdownMenu) {
+        elements.themeDropdownMenu.classList.add('hidden');
+      }
+      showToast(`Switched to ${theme === 'light' ? 'Light' : 'Dark'} Mode!`, 'info');
     });
   });
 }
 
 function setTheme(theme) {
-  document.body.setAttribute('data-theme', theme);
-  localStorage.setItem('faceid-theme', theme);
+  const activeTheme = theme === 'light' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', activeTheme);
+  localStorage.setItem('faceid-theme', activeTheme);
 
   if (elements.activeThemeName) {
-    elements.activeThemeName.textContent = themeLabels[theme] || 'Obsidian';
+    elements.activeThemeName.textContent = activeTheme === 'light' ? 'Light' : 'Dark';
   }
 
-  elements.themeMenuItems.forEach(item => {
-    const isMatch = item.getAttribute('data-theme') === theme;
+  const themeIcon = document.getElementById('theme-icon');
+  if (themeIcon) {
+    themeIcon.className = activeTheme === 'light' ? 'ph ph-sun' : 'ph ph-moon';
+    themeIcon.style.color = activeTheme === 'light' ? '#F59E0B' : '#818CF8';
+  }
+
+  const items = document.querySelectorAll('.theme-menu-item');
+  items.forEach(item => {
+    const itemTheme = item.getAttribute('data-theme');
+    const isMatch = itemTheme === activeTheme;
     item.classList.toggle('active', isMatch);
   });
 }
@@ -292,10 +307,11 @@ async function loadSystemStatus() {
       elements.enrolledBadge.textContent = data.enrolled_count;
       if (elements.portalEnrolledCount) elements.portalEnrolledCount.textContent = data.enrolled_count;
       if (elements.portalTemplatesCount) elements.portalTemplatesCount.textContent = data.total_templates;
-      state.threshold = data.threshold;
-      elements.thresholdSlider.value = data.threshold;
-      elements.sliderThresholdVal.textContent = data.threshold.toFixed(2);
-      elements.topThreshDisplay.textContent = data.threshold.toFixed(2);
+      const startingThresh = 0.60;
+      state.threshold = startingThresh;
+      elements.thresholdSlider.value = startingThresh;
+      elements.sliderThresholdVal.textContent = startingThresh.toFixed(2);
+      elements.topThreshDisplay.textContent = startingThresh.toFixed(2);
     }
   } catch (err) {
     console.error('Failed to load status:', err);
@@ -505,6 +521,15 @@ function initDragAndDrop() {
     }
   });
   
+  const mobileCameraInput = document.getElementById('mobile-camera-input');
+  if (mobileCameraInput) {
+    mobileCameraInput.addEventListener('change', () => {
+      if (mobileCameraInput.files.length > 0) {
+        processSelectedFile(mobileCameraInput.files[0]);
+      }
+    });
+  }
+
   elements.btnClearCanvas.addEventListener('click', resetIdentifier);
 
   // Live Query Webcam Listeners
@@ -524,6 +549,17 @@ function initDragAndDrop() {
    ========================================================================== */
 
 async function openQueryCamera() {
+  const mobileCameraInput = document.getElementById('mobile-camera-input');
+
+  // Mobile browsers strictly block WebRTC getUserMedia on non-HTTPS IP origins.
+  // Fall back smoothly to native phone camera capture (front selfie)
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    if (mobileCameraInput) {
+      mobileCameraInput.click();
+      return;
+    }
+  }
+
   try {
     if (queryCameraStream) closeQueryCamera();
     queryCameraStream = await navigator.mediaDevices.getUserMedia({
@@ -535,8 +571,12 @@ async function openQueryCamera() {
     elements.dropzone.classList.add('hidden');
     elements.webcamQueryWrapper.classList.remove('hidden');
   } catch (err) {
-    console.error('Query camera error:', err);
-    showToast('Camera access denied or unavailable: ' + (err.message || err.name), 'error');
+    console.warn('WebRTC camera unavailable, opening native mobile camera intent:', err);
+    if (mobileCameraInput) {
+      mobileCameraInput.click();
+    } else {
+      showToast('Camera access denied or unavailable: ' + (err.message || err.name), 'error');
+    }
   }
 }
 
@@ -1184,10 +1224,18 @@ function initFullEnrollment() {
         return;
       }
       const video = elements.fullEnrollVideoFeed;
-      if (!video || !video.videoWidth) {
+      const mobileEnrollInput = document.getElementById('mobile-enroll-camera-input');
+
+      // If WebRTC live video is unavailable (e.g. mobile browser over HTTP), open phone camera
+      if (!video || !video.videoWidth || !fullCameraStream) {
+        if (mobileEnrollInput) {
+          mobileEnrollInput.click();
+          return;
+        }
         showToast('Waiting for live camera stream...', 'error');
         return;
       }
+
       const canvas = elements.fullEnrollSnapCanvas;
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
@@ -1202,6 +1250,26 @@ function initFullEnrollment() {
       fullEnrollImages.push(dataUrl);
       renderFullPreviewThumbnails();
       showToast(`Captured enrollment photo (${fullEnrollImages.length}/5)!`, 'success');
+    });
+  }
+
+  // Native phone camera capture handler for mobile enrollment
+  const mobileEnrollInput = document.getElementById('mobile-enroll-camera-input');
+  if (mobileEnrollInput) {
+    mobileEnrollInput.addEventListener('change', () => {
+      if (mobileEnrollInput.files && mobileEnrollInput.files[0]) {
+        if (fullEnrollImages.length >= 5) {
+          showToast('Maximum 5 enrollment photos allowed.', 'error');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          fullEnrollImages.push(e.target.result);
+          renderFullPreviewThumbnails();
+          showToast(`Captured enrollment photo (${fullEnrollImages.length}/5)!`, 'success');
+        };
+        reader.readAsDataURL(mobileEnrollInput.files[0]);
+      }
     });
   }
 
@@ -1302,6 +1370,12 @@ function setFullEnrollMode(mode) {
 }
 
 async function startFullCameraStream() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    if (elements.btnFullSnapPhoto) {
+      elements.btnFullSnapPhoto.innerHTML = `<i class="ph ph-camera"></i> Snap with Phone Camera (<span id="full-snap-count">${fullEnrollImages.length}</span>/5)`;
+    }
+    return;
+  }
   try {
     if (fullCameraStream) stopFullCameraStream();
     fullCameraStream = await navigator.mediaDevices.getUserMedia({
@@ -1311,9 +1385,10 @@ async function startFullCameraStream() {
       elements.fullEnrollVideoFeed.srcObject = fullCameraStream;
     }
   } catch (err) {
-    console.error('Full enrollment camera error:', err);
-    showToast('Camera access denied or unavailable: ' + (err.message || err.name), 'error');
-    setFullEnrollMode('upload');
+    console.warn('Full enrollment WebRTC stream unavailable, enabling direct phone snap:', err);
+    if (elements.btnFullSnapPhoto) {
+      elements.btnFullSnapPhoto.innerHTML = `<i class="ph ph-camera"></i> Snap with Phone Camera (<span id="full-snap-count">${fullEnrollImages.length}</span>/5)`;
+    }
   }
 }
 

@@ -7,6 +7,7 @@
    THEME 1: OBSIDIAN INDIGO (Default: Sleek Linear / Vercel Dark)
    -------------------------------------------------------------------------- */
 :root,
+body[data-theme="dark"],
 body[data-theme="obsidian"] {
   /* Rich, velvety graphite & deep charcoal surfaces */
   --bg-darkest: #090B10;
@@ -2010,6 +2011,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .hero-brand {
   background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-primary-bright));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

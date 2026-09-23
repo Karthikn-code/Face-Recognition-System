@@ -32,7 +32,7 @@ EMBEDDING_DIM = 512      # Dimensionality of L2-normalized ArcFace/FaceNet embed
 
 # Matcher & Decision Parameters
 # Calibrated optimal operating threshold tuned programmatically on the validation split
-MATCH_THRESHOLD = 0.34
+MATCH_THRESHOLD = 0.60
 MATCH_MODE = "max_similarity"  # Options: "max_similarity" or "mean_prototype"
 
 # Fallback Backends

@@ -29,3 +29,8 @@ results/failures/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local notes & documentation
+notes/
+*.pdf
+
